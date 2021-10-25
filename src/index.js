@@ -2,7 +2,7 @@ const express = require('express')
 const fetchUrl = require("fetch").fetchUrl;
 const oauth2 = require('salesforce-oauth2')
 const PORT = process.env.PORT || 4000
-const app = express.createServer(express.logger());
+const app = express()
 
 
 let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
@@ -27,7 +27,7 @@ app.get('/auth/salesforce', async (req, res) => {
 
  
 
-  res.json(uri)
+  res.json('uri')
   //return response.redirect(uri);   
    
 
