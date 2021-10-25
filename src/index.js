@@ -25,8 +25,6 @@ app.listen(app.get('port'), () => { })
 
 app.get('/auth/salesforce', async (req, res) => {
 
-
-
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: client_id,
@@ -69,9 +67,21 @@ app.get('/auth/token', async (req, res) => {
 })
 app.get('/auth/handle_decision', async (req, res) => {
 
-res.json('hola')
+  //res.json('hola')
 
+  var authorizationCode = request.param('code');
 
+  oauth2.authenticate({
+    redirect_uri: redirect_uri,
+    client_id: client_id,
+    client_secret: client_secret,
+    code: authorizationCode,
+    // You can change loginUrl to connect to sandbox or prerelease env.
+    //base_url: 'https://test.my.salesforce.com'
+  }, function (error, payload) {
+    res.json(payload)
+
+  });
 
 
 
