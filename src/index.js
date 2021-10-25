@@ -69,10 +69,17 @@ client_id=3MVG9IHf89I1t8hrvswazsWedXWY0i1qK20PSFaInvUgLFB6vrcb9bbWFTSIHpO8G2jxBL
 redirect_uri=https://www.mycustomerorderstatus.com/oauth2/callback&
 response_type=code */
 
-app.get('/redirect.js', async (req, res) => {
+app.get('/auth/handle_decision', async (req, res) => {
 
   console.log('redirect')
 
+  let code = req.query_string
+  console.log(code)
+  console.log(req)
+
+
+
+  
 })
 app.post('/redirect.js', (req, res) => {
   const { domainBase, account_id, path, pathEncoded } = req.body
