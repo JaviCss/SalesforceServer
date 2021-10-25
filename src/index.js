@@ -33,7 +33,7 @@ app.get('/auth/salesforce', async (req, res) => {
   let url = `https://login.salesforce.com/services/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code `
 
   console.log('salesforce')
-  res.redirect(url, '_blank');
+  res.redirect(url);
 
   /*
     const response = await fetchUrl('https://httpbin.org/post', {
