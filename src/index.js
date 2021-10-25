@@ -71,9 +71,9 @@ response_type=code */
 
 app.get('/auth/handle_decision', async (req, res) => {
 
-  console.log('redirect')
+ 
 
-  let code = req
+  let code = req.query
   res.json(code)
 
 
