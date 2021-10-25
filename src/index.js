@@ -30,10 +30,8 @@ app.get('/auth/salesforce', async (req, res) => {
     'client_id': 'your_client_id',
     'state': req.query.state
   }
-  let url = 'https://login.salesforce.com/services/oauth2/authorize?' + `${params.state}`
-    + `${params.state}`
-    + `${params.state}`
-    + `${params.state}`
+  let url = `https://login.salesforce.com/services/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code `
+  
   console.log('salesforce')
   res.redirect(url);
 
