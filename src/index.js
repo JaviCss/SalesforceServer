@@ -32,7 +32,9 @@ app.get('/auth/salesforce', async (req, res) => {
     // You can change loginUrl to connect to sandbox or prerelease env.
     //base_url: 'https://test.my.salesforce.com'
   });
-  return response.redirect(uri);   
+
+  res.json(uri)
+  //return response.redirect(uri);   
    
 
   /*
