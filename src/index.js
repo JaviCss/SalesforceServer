@@ -24,7 +24,7 @@ app.listen(app.get('port'), () => { })
 
 
 app.get('/auth/salesforce', async (req, res) => {
-  /*
+
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: client_id,
@@ -33,9 +33,9 @@ app.get('/auth/salesforce', async (req, res) => {
     //base_url: 'https://test.my.salesforce.com'
   });
   return response.redirect(uri);   
-    */
+   
 
-  
+  /*
  params = {
     'response_type': 'code',
     'redirect_uri': 'https://my-example-app.herokuapp.com/auth/handle_decision',
@@ -47,7 +47,7 @@ app.get('/auth/salesforce', async (req, res) => {
   console.log('salesforce')
   res.redirect(url);
 
- 
+  */
  
 })
 app.get('/auth/token', async (req, res) => {
