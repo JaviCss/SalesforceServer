@@ -55,10 +55,13 @@ app.get('/auth/token', async (req, res) => {
 })
 app.get('/auth/handle_decision', async (req, res) => {
 
-  //res.json('hola')
+  let code = req.query.code
+   res.json(code)
 
+
+   
   var authorizationCode = request.param('code');
-
+  
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: client_id,
@@ -67,7 +70,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     // You can change loginUrl to connect to sandbox or prerelease env.
     //base_url: 'https://test.my.salesforce.com'
   }, function (error, payload) {
-    res.json(payload)
+   
 
   });
 
