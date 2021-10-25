@@ -73,9 +73,9 @@ app.get('/auth/handle_decision', async (req, res) => {
 
   console.log('redirect')
 
-  let code = req.query_string
+  let code = req
   console.log(code)
-  console.log(req)
+
 
 
 
