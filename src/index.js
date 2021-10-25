@@ -31,8 +31,8 @@ app.get('/auth/salesforce', async (req, res) => {
     scope: 'api', // 'id api web refresh_token'
   });
 
-  res.json(uri)
-  return response.redirect(uri);   
+  //res.json(uri)
+  return res.redirect(uri);   
    
 
   /*
