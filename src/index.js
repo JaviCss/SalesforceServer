@@ -73,7 +73,7 @@ app.get('/auth/handle_decision', async (req, res) => {
 
   console.log('redirect')
 
-  
+  res.json('redirect')
 
 
 
