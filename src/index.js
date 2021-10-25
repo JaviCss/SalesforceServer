@@ -1,7 +1,8 @@
 const express = require('express')
 const fetchUrl = require("fetch").fetchUrl;
+const oauth2 = require('salesforce-oauth2')
 const PORT = process.env.PORT || 4000
-const app = express()
+const app = express.createServer(express.logger());
 
 
 let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
@@ -24,7 +25,17 @@ app.listen(app.get('port'), () => { })
 
 app.get('/auth/salesforce', async (req, res) => {
 
-  params = {
+
+
+  var uri = oauth2.getAuthorizationUrl({
+    redirect_uri: redirect_uri,
+    client_id: client_id,
+    scope: 'api', // 'id api web refresh_token'
+    // You can change loginUrl to connect to sandbox or prerelease env.
+    //base_url: 'https://test.my.salesforce.com'
+  });
+  return response.redirect(uri);
+  /* params = {
     'response_type': 'code',
     'redirect_uri': 'https://my-example-app.herokuapp.com/auth/handle_decision',
     'client_id': 'your_client_id',
@@ -35,16 +46,8 @@ app.get('/auth/salesforce', async (req, res) => {
   console.log('salesforce')
   res.redirect(url);
 
-  /*
-    const response = await fetchUrl('https://httpbin.org/post', {
-      method: 'post',
-      body: JSON.stringify(body),
-      headers: { 'Content-Type': 'application/json' }
-    });
-    //const data = await response.json();
-  
-    console.log(body);
-    //res.json()
+ 
+    
     */
 })
 app.get('/auth/token', async (req, res) => {
@@ -64,22 +67,49 @@ app.get('/auth/token', async (req, res) => {
   res.send('token')
 
 })
-/*https://login.salesforce.com/services/oauth2/authorize?
-client_id=3MVG9IHf89I1t8hrvswazsWedXWY0i1qK20PSFaInvUgLFB6vrcb9bbWFTSIHpO8G2jxBLJA6uZGyPFC5Aejq&
-redirect_uri=https://www.mycustomerorderstatus.com/oauth2/callback&
-response_type=code */
-
 app.get('/auth/handle_decision', async (req, res) => {
 
+res.json('hola')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
  
+   let code = req.query.code
+   res.json(code)
+ 
+   params = {
+     'grant_type': 'authorization_code',
+     'code': req.query.code,
+     'client_id': client_id,
+     'client_secret': client_secret,
+     'redirect_uri': 'https://server-sf.herokuapp.com/auth/handle_decision'
+ }
+ const response = await fetchUrl('services/oauth2/token', {
+   method: 'post',
+   body: JSON.stringify(body),
+   headers: { 'Content-Type': 'application/json' }
+ });
+ //const data = await response.json();
+ 
+ console.log(body);
+ //
+ */
 
-  let code = req.query
-  res.json(code)
-
-
-
-
-  
 })
 app.post('/redirect.js', (req, res) => {
   const { domainBase, account_id, path, pathEncoded } = req.body
