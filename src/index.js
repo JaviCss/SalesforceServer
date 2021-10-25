@@ -29,11 +29,9 @@ app.get('/auth/salesforce', async (req, res) => {
     redirect_uri: redirect_uri,
     client_id: client_id,
     scope: 'api', // 'id api web refresh_token'
-    // You can change loginUrl to connect to sandbox or prerelease env.
-    //base_url: 'https://login.salesforce.com'
   });
 
-  ///res.json(uri)
+  res.json(uri)
   return response.redirect(uri);   
    
 
