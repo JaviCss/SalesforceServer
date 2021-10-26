@@ -56,8 +56,8 @@ app.get('/auth/token', async (req, res) => {
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
-  res.json('hola')
-  /*
+  
+  
    
   var authorizationCode = request.param('code');
   
@@ -68,9 +68,9 @@ app.get('/auth/handle_decision', async (req, res) => {
     code: authorizationCode,    
   }, function (error, payload) {
    
-
-    return 
-  })*/
+    res.json(payload)
+    
+  })
 
   
 
