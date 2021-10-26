@@ -68,7 +68,8 @@ app.get('/auth/handle_decision', async (req, res) => {
     code: authorizationCode,    
   }, function (error, payload) {
    
-    res.json(payload)
+    console.log(error)
+    console.log(payload)
     
   })
 
