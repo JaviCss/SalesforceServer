@@ -59,7 +59,7 @@ app.get('/auth/handle_decision', async (req, res) => {
   
   
    
-  var authorizationCode = request.param('code');
+  var authorizationCode = req.param('code');
   
   oauth2.authenticate({
     redirect_uri: redirect_uri,
