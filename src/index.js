@@ -48,7 +48,8 @@ app.get('/auth/token', async (req, res) => {
 app.get('/auth/handle_decision', async (req, res) => {
 
   var authorizationCode = req.param('code');
-  
+  console.log(authorizationCode)
+
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: client_id,
@@ -57,10 +58,9 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, function (error, payload) {
 
     console.log(error)
-    let data = payload.json()
-    console.log(data)
+    console.log(payload)
     /*
-      
+      data = r.json()
       response.set_cookie('sheet', data['access_token'], max_age = data['expires_in'])
       response.set_cookie('clean_sheet', data['refresh_token'])
       redirect('https://d3v-testing.zendesk.com/agent/tickets/{}'.format(request.query.state))
