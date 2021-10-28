@@ -61,8 +61,8 @@ app.get('/auth/handle_decision', async (req, res) => {
     let data = payload
     //console.log('Respuesta: ', data['access_token'])
    
-    res.cookie('sheet', data['access_token'],{ maxAge:data['expires_in']}).send('Cookie is set')
-    res.cookie('clean_sheet', data['refresh_token']).send('Cookie is set')
+    res.cookie('sheet', 'hola',{ maxAge: data['expires_in']}).send('Cookie is set')
+    //res.cookie('clean_sheet', data['refresh_token']).send('Cookie is set')
 
  
 
