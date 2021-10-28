@@ -19,7 +19,7 @@ let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 //config
 app.set('port', PORT)
 //midelware
-//app.use(cookieParser())
+app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 //routes
@@ -46,7 +46,7 @@ app.get('/auth/token', async (req, res) => {
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
-/*
+
   var authorizationCode = req.param('code');
   console.log(authorizationCode)
   
@@ -60,7 +60,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     console.log(error)
     console.log(payload)
 
-  })*/
+  })
 /*
   data = r.json()
   response.set_cookie('sheet', data['access_token'], max_age = data['expires_in'])
