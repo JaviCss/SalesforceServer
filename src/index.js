@@ -20,7 +20,7 @@ let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 //config
 app.set('port', PORT)
 //midelware
-app.use(cookieParser())
+//app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 //routes
@@ -48,10 +48,10 @@ app.get('/auth/token', async (req, res) => {
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
-
+/*
   var authorizationCode = req.param('code');
   console.log(authorizationCode)
-  /*
+  
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: client_id,
