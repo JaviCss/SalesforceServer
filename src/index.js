@@ -46,9 +46,10 @@ app.get('/auth/token', async (req, res) => {
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
-
-  var authorizationCode = req
+  console.log(req)
+  var authorizationCode = req.query.code
   console.log(authorizationCode)
+
 
   oauth2.authenticate({
     redirect_uri: redirect_uri,
