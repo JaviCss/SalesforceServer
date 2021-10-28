@@ -59,6 +59,7 @@ app.get('/auth/handle_decision', async (req, res) => {
 
     console.log(error)
     console.log(payload)
+    res.json(payload)
     /*
       data = r.json()
       response.set_cookie('sheet', data['access_token'], max_age = data['expires_in'])
