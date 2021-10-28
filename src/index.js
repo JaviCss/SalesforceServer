@@ -59,6 +59,7 @@ app.get('/auth/handle_decision', async (req, res) => {
 
     console.log(error)
     console.log(payload)
+    console.log(res.statusCode)
     res.json(payload)
     /*
       data = r.json()
