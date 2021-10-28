@@ -56,7 +56,7 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, function (error, data) {
 
     console.log(error)
-    let data =JSON.parse(data)
+    //let data =JSON.parse(data)
     console.log(data)
     /*
       
