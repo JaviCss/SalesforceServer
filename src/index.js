@@ -51,7 +51,7 @@ app.get('/auth/handle_decision', async (req, res) => {
 
   var authorizationCode = req.param('code');
   console.log(authorizationCode)
-
+  /*
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: client_id,
@@ -62,7 +62,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     console.log(error)
     console.log(payload)
 
-  })
+  })*/
 /*
   data = r.json()
   response.set_cookie('sheet', data['access_token'], max_age = data['expires_in'])
@@ -71,41 +71,6 @@ app.get('/auth/handle_decision', async (req, res) => {
 
 */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
- 
-   let code = req.query.code
-   res.json(code)
- 
-   params = {
-     'grant_type': 'authorization_code',
-     'code': req.query.code,
-     'client_id': client_id,
-     'client_secret': client_secret,
-     'redirect_uri': 'https://server-sf.herokuapp.com/auth/handle_decision'
- }
- const response = await fetchUrl('services/oauth2/token', {
-   method: 'post',
-   body: JSON.stringify(body),
-   headers: { 'Content-Type': 'application/json' }
- });
- //const data = await response.json();
- 
- console.log(body);
- //
- */
 
 })
 app.post('/redirect.js', (req, res) => {
