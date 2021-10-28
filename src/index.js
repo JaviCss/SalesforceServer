@@ -48,17 +48,15 @@ app.get('/auth/token', async (req, res) => {
 app.get('/auth/handle_decision', async (req, res) => {
 
   var authorizationCode = req.param('code');
-  console.log(authorizationCode)
-
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: client_id,
     client_secret: client_secret,
     code: authorizationCode,
-  }, function (error, payload) {
+  }, function (error, data) {
 
     console.log(error)
-    let data = payload.json()
+    let data =JSON.parse(data)
     console.log(data)
     /*
       
