@@ -57,10 +57,15 @@ app.get('/auth/handle_decision', async (req, res) => {
     code: authorizationCode,
   }, function (error, payload) {
 
-    console.log(error)
-    console.log(payload)
-    console.log(res.statusCode)
-    res.json(payload)
+    //console.log('Error: ', error)
+    //console.log('Respuesta: ', payload)
+    //console.log('Estatus: ', res.statusCode)
+
+    let data = payload
+    console.log('Respuesta: ', data['access_token'])
+    res.json(data['access_token'])
+    //res.set_cookie('sheet', data['access_token'], max_age=data['expires_in']
+    
     /*
       data = r.json()
       response.set_cookie('sheet', data['access_token'], max_age = data['expires_in'])
