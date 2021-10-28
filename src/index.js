@@ -62,7 +62,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     console.log('Respuesta: ', data)
    
     res.cookie('sheet', data.access_token,{ maxAge: data.issued_at})
-    //res.redirect('https://d3v-testing.zendesk.com/agent/apps/local-app')
+    res.redirect('https://d3v-testing.zendesk.com/agent/apps/local-app')
     //res.cookie('clean_sheet', data['refresh_token']).send('Cookie is set')
 
  
