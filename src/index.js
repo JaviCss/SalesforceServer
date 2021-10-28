@@ -10,7 +10,6 @@ const app = express();
 
 
 
-let subdomain
 let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
 let client_secret = 'CD676C6964227D3163149B6BD77C30EBFBDEBA05DF93F759F9FA873E59219C22'
 let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
@@ -28,8 +27,6 @@ app.use(express.urlencoded({ extended: true }))
 
 app.listen(app.get('port'), () => { })
 
-
-
 app.get('/auth/salesforce', async (req, res) => {
 /*
 let client_id  
@@ -37,9 +34,6 @@ let client_secret
 let redirect_uri 
 let subdomain zat
 let ticket
-
-
-
 */
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
