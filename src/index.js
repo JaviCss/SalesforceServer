@@ -47,7 +47,7 @@ app.get('/auth/token', async (req, res) => {
 })
 app.get('/auth/handle_decision', async (req, res) => {
 
-  var authorizationCode = req.params('code');
+  var authorizationCode = req.param('code');
   console.log(authorizationCode)
 
   oauth2.authenticate({
