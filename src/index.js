@@ -1,9 +1,8 @@
 const express = require('express')
-const fetchUrl = require("fetch").fetchUrl;
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 
-const 
+
 ///////
 const PORT = process.env.PORT || 4000
 const app = express();
@@ -26,8 +25,6 @@ app.use(express.urlencoded({ extended: true }))
 //routes
 
 app.listen(app.get('port'), () => { })
-
-app.get('/auth/salesforce', async (req, res) => {
 /*
 let client_id  
 let client_secret 
@@ -35,12 +32,13 @@ let redirect_uri
 let subdomain zat
 let ticket
 */
+app.get('/auth/salesforce', async (req, res) => {
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: client_id,
     scope: 'api', // 'id api web refresh_token'
-  });
-  return res.redirect(uri);
+  })
+  return res.redirect(uri)
 })
 app.get('/auth/token', async (req, res) => {
 
@@ -79,7 +77,7 @@ app.post('/redirect.js', (req, res) => {
 
   res.json(dataSign)
 })
-//start
+
 
 
 
