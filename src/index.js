@@ -42,7 +42,7 @@ app.get('/auth/salesforce', async (req, res) => {
 })
 app.get('/auth/token', async (req, res) => {
 
-  let cookie = req.headers
+  let cookie = req.cookies
   //todasLasCookies = document.cookie
   console.log(cookie)
   //res.json(cookie)
@@ -61,8 +61,8 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, function (error, payload) {
     let data = payload
     //console.log('Respuesta: ', data)
-    res.cookie('sheet', data.access_token, { maxAge: data.issued_at })
-    res.cookie('clean_sheet', data.refresh_token)
+    res.cookie('sheet', data.access_token, { maxAge: data.issued_at }).send()
+    //res.cookie('clean_sheet', data.refresh_token)
     res.redirect('https://d3v-testing.zendesk.com/agent/apps/local-app?zat=true')
   })
 })
