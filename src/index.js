@@ -42,7 +42,7 @@ app.get('/auth/salesforce', async (req, res) => {
 })
 app.get('/auth/token', async (req, res) => {
 
-  let cookie = res.cookie
+  let cookie = req.cookies.sheet
   //todasLasCookies = document.cookie
   res.json(cookie)
 
@@ -67,6 +67,7 @@ app.get('/auth/handle_decision', async (req, res) => {
    
     res.cookie('clean_sheet', data.refresh_token)
     res.redirect('https://d3v-testing.zendesk.com/agent/apps/local-app?zat=true')
+    res.send()
 
   })
 
