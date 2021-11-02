@@ -45,7 +45,7 @@ app.get('/auth/token', async (req, res) => {
   let cookie = req.cookies.sheet
   //todasLasCookies = document.cookie
   console.log(cookie)
-  //res.json(cookie)
+  res.json(cookie)
 
 
 
