@@ -42,7 +42,7 @@ app.get('/auth/salesforce', async (req, res) => {
 })
 app.get('/auth/token', async (req, res) => {
 
-  let cookie = req.cookies['cookiename']
+  let cookie = req.cookies['sheet']
   res.json(cookie)
 
 
