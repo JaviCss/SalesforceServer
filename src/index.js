@@ -20,19 +20,18 @@ let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 app.set('port', PORT)
 //midelware
 
-
+app.use(session({
+  secret: 'cat',
+  resave: true,
+  saveUninitialized: true
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__dirname));
 app.use(cookieParser())
 
 
-app.use(session({
-  secret: 'cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {}
-}))
+
 //routes
 
 app.listen(app.get('port'), () => { })
@@ -52,9 +51,9 @@ app.get('/auth/salesforce', async (req, res) => {
   return res.redirect(uri)
 })
 app.get('/auth/token', async (req, res) => {
-  const { cookies } = req.session
+ 
   
-  console.log(cookies)
+  console.log( req.session)
   res.json('listo')
 
 })
@@ -68,8 +67,11 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, function (error, payload) {
     let data = payload
 
-    req.session.sheet = data.access_token
-    req.session.maxAge = data.issued_at
+    req.session.sheet = {
+      sheet:data.access_token , 
+      maxAge : data.issued_at
+      }
+   
 
 
 
