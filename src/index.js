@@ -60,7 +60,8 @@ app.get('/auth/handle_decision', async (req, res) => {
     let data = payload
     res.cookie('sheet', data.access_token, { maxAge: data.issued_at,  httpOnly: false, secure:false})   
     res.cookie('clean_sheet', data.refresh_token)
-   // req.cookies.sheet = {sheet = data.access_token, maxAge: data.issued_at }
+   
+    req.cookies.sheet = {sheet = data.access_token, maxAge: data.issued_at }
     res.send("<script>window.close();</script >")
   })
 })
