@@ -44,34 +44,7 @@ app.get('/auth/token', async (req, res) => {
 
   let data 
   console.log(req.cookies)
-  //res.cookie('sheet', data.access_token, { maxAge: data.issued_at })
-  /*
-  access_token = request.get_cookie('sheet')
-  refresh_token = request.get_cookie('clean_sheet')
-  if access_token:
-    token = access_token
-  elif refresh_token:
-  params = {
-    'grant_type': 'refresh_token',
-    'refresh_token': refresh_token,
-    'client_id': 'your_client_id',
-    'client_secret': 'your_client_secret',
-    'redirect_uri': 'https://my-example-app.herokuapp.com/auth/handle_decision'
-  }
-  url = 'https://app.asana.com/-/oauth_token'
-  r = requests.post(url, data = params)
-  if r.status_code != 200:
-    error_msg = 'Failed to get access token with error {}'.format(r.status_code)
-  return error_msg
-      else:
-  data = r.json()
-  response.set_cookie('sheet', data['access_token'], max_age = data['expires_in'])
-  token = data['access_token']
-  else:
-  token = 'undefined'
-  return template('auth', token = token)
-*/
-
+  
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
@@ -87,14 +60,10 @@ app.get('/auth/handle_decision', async (req, res) => {
     res.cookie('sheet', data.access_token, { maxAge: data.issued_at })
     res.cookie('clean_sheet', data.refresh_token)
     res.redirect('https://d3v-testing.zendesk.com/agent/apps/local-app?zat=true')
+    next()
   })
 })
-app.post('/redirect.js', (req, res) => {
-  const { domainBase, account_id, path, pathEncoded } = req.body
-  const { consumeri, consumers, tokeni, tokens } = req.headers
-
-  res.json(dataSign)
-})
+app.use(express.static(__dirname + '/public'));
 
 
 
