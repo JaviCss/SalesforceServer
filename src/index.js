@@ -71,7 +71,7 @@ app.get('/auth/handle_decision', async (req, res) => {
 
 
 
-    req.session.sheet = sheets
+    req.session.sheet = data.access_token
    
 
 
