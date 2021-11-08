@@ -42,10 +42,9 @@ app.get('/auth/salesforce', async (req, res) => {
 })
 app.get('/auth/token', async (req, res) => {
 
-  let cookie = req
-  console.log(req.headers.cookie)
-  res.json(cookie)
-
+  let data 
+  console.log(req)
+  res.cookie('sheet', data.access_token, { maxAge: data.issued_at })
   /*
   access_token = request.get_cookie('sheet')
   refresh_token = request.get_cookie('clean_sheet')
