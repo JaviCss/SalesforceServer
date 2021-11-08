@@ -42,7 +42,7 @@ app.get('/auth/salesforce', async (req, res) => {
 })
 app.get('/auth/token', async (req, res) => {
 
-  let cookie = document.cookie 
+  let cookie = ''
   console.log(req.cookies)
   console.log(cookie)
   
@@ -57,7 +57,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     code: authorizationCode,
   }, function (error, payload) {
     let data = payload
-    res.cookie('sheet', data.access_token, { maxAge: data.issued_at,  httpOnly: true})   
+    res.cookie('sheet', data.access_token, { maxAge: data.issued_at,  httpOnly: false})   
     res.cookie('clean_sheet', data.refresh_token)
     res.send("<script>window.close();</script >")
   })
