@@ -45,7 +45,6 @@ app.get('/auth/token', async (req, res) => {
  const { cookies } = req
 
   console.log(cookies)
-  console.log(incoming_cookies)
   res.json('listo')
 
 })
