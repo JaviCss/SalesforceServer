@@ -26,7 +26,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__dirname));
 app.use(cookieParser())
 
-
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
 
 //routes
 
