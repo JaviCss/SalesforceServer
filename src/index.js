@@ -76,8 +76,8 @@ app.get('/auth/handle_decision', async (req, res) => {
 
 
 
-    res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, path: '/auth/token', })
-    res.cookie('clean_sheet', data.refresh_token)
+   // res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, path: '/auth/token', })
+    //res.cookie('clean_sheet', data.refresh_token)
     res.send("<script>window.close();</script >")
   })
 })
