@@ -41,10 +41,10 @@ app.get('/auth/salesforce', async (req, res) => {
   return res.redirect(uri)
 })
 app.get('/auth/token', async (req, res) => {
+  var incoming_cookies = req.headers.cookie
 
-  let cookie = ''
   console.log(req.cookies)
-  console.log(cookie)
+  console.log(incoming_cookies)
   
 
 })
