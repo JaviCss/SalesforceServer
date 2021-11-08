@@ -1,7 +1,7 @@
 const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
-
+const session = require('session');
 
 ///////
 const PORT = process.env.PORT || 4000
@@ -19,10 +19,20 @@ let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 //config
 app.set('port', PORT)
 //midelware
-app.use(cookieParser())
-app.use(express.static('public'));
+
+
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(__dirname));
+app.use(cookieParser())
+
+
+app.use(session({
+  secret: 'cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {}
+}))
 //routes
 
 app.listen(app.get('port'), () => { })
@@ -42,8 +52,8 @@ app.get('/auth/salesforce', async (req, res) => {
   return res.redirect(uri)
 })
 app.get('/auth/token', async (req, res) => {
- const { cookies } = req
-
+  const { cookies } = req.session
+  
   console.log(cookies)
   res.json('listo')
 
@@ -57,8 +67,15 @@ app.get('/auth/handle_decision', async (req, res) => {
     code: authorizationCode,
   }, function (error, payload) {
     let data = payload
-    res.cookie('sheet', data.access_token, { maxAge: data.issued_at,  httpOnly: true , path:'/auth/token',})   
-    res.cookie('clean_sheet', data.refresh_token)    
+
+    req.session.sheet = data.access_token
+    req.session.maxAge = data.issued_at
+
+
+
+
+    res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, path: '/auth/token', })
+    res.cookie('clean_sheet', data.refresh_token)
     res.send("<script>window.close();</script >")
   })
 })
