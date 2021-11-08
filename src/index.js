@@ -42,12 +42,36 @@ app.get('/auth/salesforce', async (req, res) => {
 })
 app.get('/auth/token', async (req, res) => {
 
-  let cookie = req.cookies
+  let cookie = req
   console.log(req.headers.cookie)
-  console.log(document.cookie)
   res.json(cookie)
 
-
+  /*
+  access_token = request.get_cookie('sheet')
+  refresh_token = request.get_cookie('clean_sheet')
+  if access_token:
+    token = access_token
+  elif refresh_token:
+  params = {
+    'grant_type': 'refresh_token',
+    'refresh_token': refresh_token,
+    'client_id': 'your_client_id',
+    'client_secret': 'your_client_secret',
+    'redirect_uri': 'https://my-example-app.herokuapp.com/auth/handle_decision'
+  }
+  url = 'https://app.asana.com/-/oauth_token'
+  r = requests.post(url, data = params)
+  if r.status_code != 200:
+    error_msg = 'Failed to get access token with error {}'.format(r.status_code)
+  return error_msg
+      else:
+  data = r.json()
+  response.set_cookie('sheet', data['access_token'], max_age = data['expires_in'])
+  token = data['access_token']
+  else:
+  token = 'undefined'
+  return template('auth', token = token)
+*/
 
 
 })
