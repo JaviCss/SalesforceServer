@@ -58,7 +58,6 @@ app.get('/auth/handle_decision', async (req, res) => {
     let data = payload
     res.cookie('sheet', data.access_token, { maxAge: data.issued_at })   
     res.cookie('clean_sheet', data.refresh_token)
-    res.redirect('https://d3v-testing.zendesk.com/agent/apps/local-app?zat=true')
     res.send("<script>window.close();</script >")
   })
 })
