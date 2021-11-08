@@ -1,7 +1,7 @@
 const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
-const session = require('express-session');
+const cookieSession = require('cookie-session')
 
 ///////
 const PORT = process.env.PORT || 4000
@@ -18,6 +18,7 @@ let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 
 //config
 app.set('port', PORT)
+app.set('trust proxy', 1)
 //midelware
 
 
@@ -26,12 +27,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__dirname));
 app.use(cookieParser())
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
 }))
-
 //routes
 
 app.listen(app.get('port'), () => { })
@@ -76,13 +75,14 @@ app.get('/auth/handle_decision', async (req, res) => {
 
 
     req.session.sheet = data.access_token
-   
+  
 
 
 
 
     res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, path: '/auth', })
-    res.cookie('clean_sheet', data.refresh_token)
+    res.cookie('clean_sheet', data.refresh_token) 
+    res.end('')
     res.send("<script>window.close();</script >")
   })
 })
