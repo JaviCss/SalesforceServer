@@ -41,11 +41,11 @@ app.get('/auth/salesforce', async (req, res) => {
   return res.redirect(uri)
 })
 app.get('/auth/token', async (req, res) => {
-  var incoming_cookies = req
+  var incoming_cookies = req.cookies
 
   console.log(req.cookies)
   console.log(incoming_cookies)
-  
+  res.json('listo')
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
