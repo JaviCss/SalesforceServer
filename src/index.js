@@ -49,7 +49,7 @@ app.get('/auth/salesforce', async (req, res) => {
 app.get('/auth/token', async (req, res) => {
  
   
-  console.log( req.session.sheet)
+  console.log( req.session)
   res.json('listo')
 
 })
@@ -63,10 +63,15 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, function (error, payload) {
     let data = payload
 
-    req.session.sheet = {
+    let sheets = {
       sheet:data.access_token , 
       maxAge : data.issued_at
       }
+
+
+
+
+    req.session.sheet = sheets
    
 
 
