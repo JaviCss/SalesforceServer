@@ -62,7 +62,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     res.send("<script>window.close();</script >")
   })
 })
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/src'));
 
 
 
