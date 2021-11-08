@@ -1,7 +1,7 @@
 const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
-const session = require('session');
+const session = require('express-session');
 
 ///////
 const PORT = process.env.PORT || 4000
