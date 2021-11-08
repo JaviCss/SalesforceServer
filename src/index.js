@@ -53,7 +53,7 @@ app.get('/auth/salesforce', async (req, res) => {
 app.get('/auth/token', async (req, res) => {
  
   
-  console.log( req.session)
+  console.log( req.session.sheet)
   res.json('listo')
 
 })
