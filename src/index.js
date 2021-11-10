@@ -53,7 +53,7 @@ app.get('/auth/token', async (req, res) => {
  
   
   console.log( req.session)
-  res.json('listo')
+  res.json( req.session)
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
