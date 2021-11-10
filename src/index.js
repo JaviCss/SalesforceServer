@@ -1,6 +1,8 @@
 const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
+const fetch = require('node-fetch')
+
 
 ///////
 const PORT = process.env.PORT || 4000
@@ -50,7 +52,12 @@ app.get('/auth/token', async (req, res) => {
 
   if (false) { } else {
     if (clean_sheet) {
-     
+      
+      const response = await fetch('https://httpbin.org/post', {method: 'POST', body: 'a=1'});
+      const data = await response.json();
+      console.log(data)
+
+      /*
       var uri = oauth2.getAuthorizationUrl({
         redirect_uri: redirect_uri,
         client_id: client_id,
@@ -58,7 +65,7 @@ app.get('/auth/token', async (req, res) => {
         // You can change loginUrl to connect to sandbox or prerelease env.
         //base_url: 'https://test.my.salesforce.com'
       });
-      return res.redirect(uri)
+      return res.redirect(uri)*/
     }
 
 
