@@ -46,9 +46,11 @@ app.get('/auth/salesforce', async (req, res) => {
 })
 app.get('/auth/token', async (req, res) => {
   
-  const cookies = req.cookies
-  console.log( cookies)
-  res.json(cookies)
+  const {sheet , clean_sheet, id_sheet } = req.cookies
+  console.log( sheet)
+  console.log(clean_sheet)
+  console.log(id_sheet)
+  res.json('listo')
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
