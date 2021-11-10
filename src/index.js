@@ -62,24 +62,15 @@ app.get('/auth/token', async (req, res) => {
         refresh_token: clean_sheet,
         client_id: client_id,
         client_secret: client_secret,
-        grant_type: 'refresh_token', 
+        grant_type: 'refresh_token',
       }, function (error, payload) {
         let data = payload
         console.log(data)
-          
-     })
+        console.log(error)
+
+      })
 
 
-
-
-      var uri = oauth2.getAuthorizationUrl({
-        refresh_token: clean_sheet,
-        client_id: client_id,
-        scope: 'api refresh_token', 
-        // You can change loginUrl to connect to sandbox or prerelease env.
-        //base_url: 'https://test.my.salesforce.com'
-      });
-      return console.log(uri)
     }
 
 
