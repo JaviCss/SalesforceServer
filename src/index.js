@@ -1,7 +1,7 @@
 const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
-import fetch from 'node-fetch';
+const axios = require('axios');
 
 
 ///////
@@ -13,7 +13,6 @@ const app = express();
 let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
 let client_secret = 'CD676C6964227D3163149B6BD77C30EBFBDEBA05DF93F759F9FA873E59219C22'
 let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
-
 
 
 
@@ -52,16 +51,23 @@ app.get('/auth/token', async (req, res) => {
 
   if (false) { } else {
     if (clean_sheet) {
-      
-      const response = await fetch(`${id_sheet}/services/oauth2/tokent`, 
-      {method: 'POST', 
-      Authorization:  'Basic' , 
-      client_id: client_id ,
-      client_secret: client_secret ,
-      grant_type: 'refresh_token' ,
-      refresh_token: clean_sheet });
-      const data = await response.json();
-      console.log(data)
+
+
+      axios({
+        method: 'POST',
+        url: `${id_sheet}/services/oauth2/tokent`,
+        Authorization: 'Basic',
+        client_id: client_id,
+        client_secret: client_secret,
+        grant_type: 'refresh_token',
+        refresh_token: clean_sheet
+      }).then(function (response) {
+          console.log(response)
+        });
+
+
+
+     
 
       /*
       var uri = oauth2.getAuthorizationUrl({
@@ -78,8 +84,8 @@ app.get('/auth/token', async (req, res) => {
   }
 
 
-  console.log('sheet',  sheet)
-  console.log('clean_sheet',clean_sheet)
+  console.log('sheet', sheet)
+  console.log('clean_sheet', clean_sheet)
   console.log(id_sheet)
   res.json('listo')
 
