@@ -74,7 +74,7 @@ app.get('/auth/token', async (req, res) => {
 
 
       var uri = oauth2.getAuthorizationUrl({
-        refresh_token: clean_sheet,
+        redirect_uri: redirect_uri,
         client_id: client_id,
         scope: 'api refresh_token', 
         // You can change loginUrl to connect to sandbox or prerelease env.
