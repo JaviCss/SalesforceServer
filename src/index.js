@@ -55,19 +55,22 @@ app.get('/auth/token', async (req, res) => {
 
       axios({
         method: 'POST',
-        url: `${id_sheet}/services/oauth2/tokent`,
-        Authorization: 'Basic',
+        baseURL: id_sheet,
+        url: `/services/oauth2/tokent`,
+        Auth: 'Basic',
         client_id: client_id,
         client_secret: client_secret,
         grant_type: 'refresh_token',
         refresh_token: clean_sheet
       }).then(function (response) {
-          console.log(response)
-        });
+        console.log(response)
+      }).catch(e => {
+        console.log(e)
+      });
 
 
 
-     
+
 
       /*
       var uri = oauth2.getAuthorizationUrl({
