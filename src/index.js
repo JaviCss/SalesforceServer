@@ -53,7 +53,13 @@ app.get('/auth/token', async (req, res) => {
   if (false) { } else {
     if (clean_sheet) {
       
-      const response = await fetch('https://httpbin.org/post', {method: 'POST', body: 'a=1'});
+      const response = await fetch(`${id_sheet}/services/oauth2/tokent`, 
+      {method: 'POST', 
+      Authorization:  'Basic' , 
+      client_id: client_id ,
+      client_secret: client_secret ,
+      grant_type: 'refresh_token' ,
+      refresh_token: clean_sheet });
       const data = await response.json();
       console.log(data)
 
