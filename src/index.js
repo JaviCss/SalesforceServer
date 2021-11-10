@@ -51,8 +51,8 @@ app.get('/auth/salesforce', async (req, res) => {
 app.get('/auth/token', async (req, res) => {
  
   
-  console.log( req.session)
-  res.json( req.session)
+  console.log( req.headers.cookie)
+  res.json('.')
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
