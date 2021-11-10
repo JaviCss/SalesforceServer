@@ -63,14 +63,13 @@ app.get('/auth/token', async (req, res) => {
           refresh_token: clean_sheet
         },
         data: {
-          client_id: client_id,
-          client_secret: client_secret
-        },
+          client_id: client_id
+        }
 
 
       }).then(function (response) {
         console.log(response)
-      })
+      }).catch()
 
 
 
@@ -134,3 +133,11 @@ let sample = {
   token_type: 'Bearer',
   issued_at: '1636557821642'
 }
+
+/*
+5Aep8615B7Psrq3qblUf.WoheZoUyT1y82wXZsjM6sAQJWHa.ZuOej14Hx4cdOw3pGQt_hbdJ74PXDM1sSRPNgQ
+5Aep8615B7Psrq3qblUf.WoheZoUyT1y82wXZsjM6sAQJWHa.Y5FG7Y6_jf.QdhsRNesITg4Aunl2N0QxRtAdBv
+
+
+
+*/
