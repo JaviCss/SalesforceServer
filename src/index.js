@@ -1,7 +1,7 @@
 const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
-const fetch = require('node-fetch')
+import fetch from 'node-fetch';
 
 
 ///////
