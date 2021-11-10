@@ -45,9 +45,33 @@ app.get('/auth/salesforce', async (req, res) => {
   return res.redirect(uri)
 })
 app.get('/auth/token', async (req, res) => {
-  
-  const {sheet , clean_sheet, id_sheet } = req.cookies
-  console.log( sheet)
+
+  const { sheet, clean_sheet, id_sheet } = req.cookies
+
+  if (false) {
+
+
+
+
+
+  } else {
+
+    if (clean_sheet) {
+      var uri = oauth2.getAuthorizationUrl({
+        refresh_token: clean_sheet,
+        client_id: client_id,
+        scope: 'api refresh_token', 
+        // You can change loginUrl to connect to sandbox or prerelease env.
+        //base_url: 'https://test.my.salesforce.com'
+      });
+      return console.log(uri)
+    }
+
+
+  }
+
+
+  console.log(sheet)
   console.log(clean_sheet)
   console.log(id_sheet)
   res.json('listo')
@@ -63,15 +87,15 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, function (error, payload) {
     let data = payload
     console.log(data)
-    res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true,  sameSite: 'none', secure: true })
-    res.cookie('clean_sheet', data.refresh_token, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true}) 
-    res.cookie('id_sheet', data.instance_url, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true}) 
+    res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, sameSite: 'none', secure: true })
+    res.cookie('clean_sheet', data.refresh_token, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+    res.cookie('id_sheet', data.instance_url, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
 
 
-    
+
     res.send("<script>window.close();</script >")
     res.end()
-   
+
   })
 })
 //app.use(express.static(__dirname + '/src'));
@@ -90,4 +114,4 @@ let sample = {
   id: 'https://login.salesforce.com/id/00D6g000005hXEMEA2/0056g0000032XSzAAM',
   token_type: 'Bearer',
   issued_at: '1636557821642'
- }
+}
