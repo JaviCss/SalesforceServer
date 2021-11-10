@@ -26,10 +26,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__dirname));
 app.use(cookieParser())
 
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}))
 //routes
 
 app.listen(app.get('port'), () => { })
