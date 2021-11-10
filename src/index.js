@@ -59,6 +59,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     code: authorizationCode,
   }, function (error, payload) {
     let data = payload
+    console.log(data)
     res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true,  sameSite: 'none', secure: true })
     res.cookie('clean_sheet', data.refresh_token, { httpOnly: true, sameSite: false}) 
     res.send("<script>window.close();</script >")
