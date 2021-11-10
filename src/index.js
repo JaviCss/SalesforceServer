@@ -48,47 +48,35 @@ app.get('/auth/token', async (req, res) => {
 
   const { sheet, clean_sheet, id_sheet } = req.cookies
 
-  if (false) {
-
-
-
-
-
-  } else {
-
+  if (false) { } else {
     if (clean_sheet) {
-
       oauth2.authenticate({
         refresh_token: clean_sheet,
         client_id: client_id,
         client_secret: client_secret,
-        grant_type: 'refresh_token', 
+        grant_type: 'refresh_token',
       }, function (error, payload) {
         let data = payload
         console.log(data)
         console.log(error)
-          
-     })
 
-
-
-
+      })
       var uri = oauth2.getAuthorizationUrl({
         redirect_uri: redirect_uri,
         client_id: client_id,
-        scope: 'api refresh_token', 
+        scope: 'api refresh_token',
         // You can change loginUrl to connect to sandbox or prerelease env.
         //base_url: 'https://test.my.salesforce.com'
       });
-      return console.log(uri)
+      return res.redirect(uri)
     }
 
 
   }
 
 
-  console.log(sheet)
-  console.log(clean_sheet)
+  console.log('sheet',  sheet)
+  console.log('clean_sheet',clean_sheet)
   console.log(id_sheet)
   res.json('listo')
 
