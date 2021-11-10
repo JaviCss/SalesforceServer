@@ -50,17 +50,7 @@ app.get('/auth/token', async (req, res) => {
 
   if (false) { } else {
     if (clean_sheet) {
-      oauth2.authenticate({
-        refresh_token: clean_sheet,
-        client_id: client_id,
-        client_secret: client_secret,
-        grant_type: 'refresh_token',
-      }, function (error, payload) {
-        let data = payload
-        console.log(data)
-        console.log(error)
-
-      })
+     
       var uri = oauth2.getAuthorizationUrl({
         redirect_uri: redirect_uri,
         client_id: client_id,
