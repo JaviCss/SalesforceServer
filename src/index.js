@@ -1,7 +1,6 @@
 const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
-const cookieSession = require('cookie-session')
 
 ///////
 const PORT = process.env.PORT || 4000
@@ -66,13 +65,12 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, function (error, payload) {
     let data = payload
 
-    req.session.sheet = data.access_token
-  
-
-    res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, path: '/auth', })
+    res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, })
     res.cookie('clean_sheet', data.refresh_token) 
     res.send("<script>window.close();</script >")
-    res.end('')
+    res.end(
+
+    )
    
   })
 })
