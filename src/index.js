@@ -60,11 +60,9 @@ app.get('/auth/handle_decision', async (req, res) => {
     code: authorizationCode,
   }, function (error, payload) {
     let data = payload
-    console.log(data)
-
     res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, })
     res.cookie('clean_sheet', data.refresh_token) 
-    //res.send("<script>window.close();</script >")
+    res.send("<script>window.close();</script >")
     res.end()
    
   })
@@ -77,3 +75,12 @@ app.get('/auth/handle_decision', async (req, res) => {
 
 
 
+let sample = {
+  access_token: '00D6g000005hXEM!AQIAQKN0oBvoAVNFLX_jBG1bE29DwMjzg6JisOmsZu7ZCtNHYH0Y6gM9LW_VsmPwznN850fKLucK185R99vCiKlZYIPNAh',
+  signature: 'O3UfpqpSdeY/pFlbvqaVih8tp+J2nKD8Nd+FrZ0vz6s=',
+  scope: 'api',
+  instance_url: 'https://venom.my.salesforce.com',
+  id: 'https://login.salesforce.com/id/00D6g000005hXEMEA2/0056g0000032XSzAAM',
+  token_type: 'Bearer',
+  issued_at: '1636557821642'
+ }
