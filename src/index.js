@@ -56,12 +56,18 @@ app.get('/auth/token', async (req, res) => {
       axios({
         method: 'POST',
         baseURL: 'login.salesforce.com',
-        url: `/services/oauth2/tokent`,
+        url: `/services/oauth2/token`,
         Auth: 'Basic',
-        client_id: client_id,
-        client_secret: client_secret,
-        grant_type: 'refresh_token',
-        refresh_token: clean_sheet
+        params: {
+          grant_type: 'refresh_token',
+          refresh_token: clean_sheet
+        },
+        data: {
+          client_id: client_id,
+          client_secret: client_secret
+        },
+
+
       }).then(function (response) {
         console.log(response)
       }).catch(e => {
