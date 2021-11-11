@@ -88,9 +88,9 @@ app.get('/auth/token', async (req, res) => {
   }
 
 
-  console.log('sheet', sheet)
-  console.log('clean_sheet', clean_sheet)
-  console.log(id_sheet)
+  //console.log('sheet', sheet)
+  //console.log('clean_sheet', clean_sheet)
+  //console.log(id_sheet)
   res.json('listo')
 
 })
