@@ -63,7 +63,8 @@ app.get('/auth/token', async (req, res) => {
           refresh_token: clean_sheet
         },
         data: {
-          'client_id': client_id
+          client_id: client_id,
+          client_secret: client_secret,
         },
 
 
