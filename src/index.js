@@ -60,13 +60,12 @@ app.get('/auth/token', async (req, res) => {
         headers: {'content-type': 'application/x-www-form-urlencoded'},
         params: {
           grant_type: 'refresh_token',
-          refresh_token: clean_sheet
+         
         },
         data: {
-          client_id: client_id  
+          client_id: client_id,
+          refresh_token: clean_sheet  
         },
-
-
       }).then(function (response) {
         console.log(response)
       }).catch( e =>  console.log(e.response.data))
