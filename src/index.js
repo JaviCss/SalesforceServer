@@ -64,7 +64,7 @@ app.get('/auth/token', async (req, res) => {
         },
         data: {
           client_id: client_id
-        }
+        },
 
 
       }).then(function (response) {
