@@ -53,7 +53,7 @@ app.get('/auth/token', async (req, res) => {
     if (clean_sheet) {
 
 
-      axios({
+      /* axios({
         method: 'POST',
         baseURL: 'https://login.salesforce.com/services/oauth2/token',
         headers: {'Authorization': 'basic'},
@@ -70,18 +70,18 @@ app.get('/auth/token', async (req, res) => {
         console.log(response)
       }).catch()
 
+*/
 
 
-
-      /*
+     
       var uri = oauth2.getAuthorizationUrl({
         redirect_uri: redirect_uri,
         client_id: client_id,
-        scope: 'api refresh_token',
+        scope: 'refresh_token',
         // You can change loginUrl to connect to sandbox or prerelease env.
         //base_url: 'https://test.my.salesforce.com'
       });
-      return res.redirect(uri)*/
+      return res.redirect(uri)
     }
 
 
