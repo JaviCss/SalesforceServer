@@ -57,15 +57,13 @@ app.get('/auth/token', async (req, res) => {
         method: 'POST',
         baseURL: 'https://login.salesforce.com/',
         url:'/services/oauth2/token',
-        headers: {'content-type': 'application/x-www-form-urlencoded',
-                  'Authorization': 'Basic',
-                   },
+        headers: {'content-type': 'application/x-www-form-urlencoded'},
         params: {
           grant_type: 'refresh_token',
           refresh_token: clean_sheet
         },
         data: {
-          client_id: '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
+          'client_id': client_id
         },
 
 
