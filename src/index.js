@@ -59,13 +59,17 @@ app.get('/auth/token', async (req, res) => {
         url:'/services/oauth2/token',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         params: { grant_type: 'refresh_token'
-
         },
         data: {
           client_id: client_id ,
           
           refresh_token: clean_sheet 
         },
+        auth: {
+          username: client_id,
+          password: clean_sheet
+        },
+        
       }).then(function (response) {
         console.log(response)
       }).catch( e =>  console.log(e.response.data))
