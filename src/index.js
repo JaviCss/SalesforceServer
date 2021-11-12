@@ -58,8 +58,8 @@ app.get('/auth/token', async (req, res) => {
         baseURL: 'https://login.salesforce.com/',
         url:'/services/oauth2/token',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},   
-        params:{ grant_type: 'refresh_token&'},   
-        data: {          
+        params:{ grant_type: 'refresh_token'},   
+        body: {          
           client_id: client_id,            
           refresh_token: clean_sheet 
         },
