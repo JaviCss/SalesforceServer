@@ -53,19 +53,15 @@ app.get('/auth/token', async (req, res) => {
     if (clean_sheet) {
 
 
-      axios({
-        method: 'POST',
-        baseURL: 'https://login.salesforce.com/',
-        url:'/services/oauth2/token',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},   
-        params:{ grant_type: 'refresh_token'},   
-        data: {          
-          client_id: client_id,            
-          refresh_token: clean_sheet 
-        },
-        maxBodyLength: 2000,
-       
-        
+      axios.post('https://login.salesforce.com/services/oauth2/token',
+      {          
+        client_id: client_id, 
+        params:{ grant_type: 'refresh_token'},             
+        refresh_token: clean_sheet 
+      },
+      {    
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},           
+        maxBodyLength: 2000,         
       }).then(function (response) {
         console.log(response)
       }).catch( e =>  console.log(e.response))
