@@ -57,7 +57,7 @@ app.get('/auth/token', async (req, res) => {
         method: 'POST',
         baseURL: 'https://login.salesforce.com/',
         url:'/services/oauth2/token',
-        headers: {'Content-Type': 'multipart/form-data'},   
+        headers: {'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>'},   
         params:{ grant_type: 'refresh_token'},   
         data: {          
           client_id: client_id,            
