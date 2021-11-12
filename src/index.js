@@ -1,7 +1,7 @@
 const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
-const axios = require('axios');
+const axios = require('axios').default;
 
 
 ///////
@@ -57,12 +57,13 @@ app.get('/auth/token', async (req, res) => {
         method: 'POST',
         baseURL: 'https://login.salesforce.com/',
         url:'/services/oauth2/token',
-        headers: {},   
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},   
         params:{ grant_type: 'refresh_token'},   
         data: {          
           client_id: client_id,            
           refresh_token: clean_sheet 
         },
+        maxBodyLength: 2000,
        
         
       }).then(function (response) {
