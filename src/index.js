@@ -67,7 +67,7 @@ app.get('/auth/token', async (req, res) => {
         
       }).then(function (response) {
         console.log(response)
-      }).catch( e =>  console.log(e.response.data))
+      }).catch( e =>  console.log(e.response))
 
 
 
