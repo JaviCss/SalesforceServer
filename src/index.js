@@ -56,7 +56,7 @@ app.get('/auth/token', async (req, res) => {
       axios.post('https://login.salesforce.com/services/oauth2/token',
       {          
         client_id: client_id, 
-        params:{ grant_type: 'refresh_token'},             
+        grant_type: 'refresh_token',             
         refresh_token: clean_sheet 
       },
       {    
