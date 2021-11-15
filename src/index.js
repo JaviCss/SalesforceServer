@@ -92,7 +92,7 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, function (error, payload) {
     let data = payload
     console.log(data)
-    let time =  new Date(24 * 3600 * 1000)
+    let time =  new Date(new Date().getTime()+24*3600*1000)
     console.log('Tiempo: ',time)
     res.cookie('sheet', data.access_token, { maxAge: time, httpOnly: true, sameSite: 'none', secure: true })
     res.cookie('clean_sheet', data.refresh_token, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
