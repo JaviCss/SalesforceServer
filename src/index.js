@@ -2,7 +2,7 @@ const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const axios = require('axios').default;
-import fetch from 'node-fetch';
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 ///////
 const PORT = process.env.PORT || 4000
@@ -49,9 +49,9 @@ app.get('/auth/token', async (req, res) => {
 
 
   const response = await fetch('https://github.com/');
-      const body = await response.text();
+  const body = await response.text();
 
-      console.log(body);
+  console.log(body);
 
 
 
@@ -64,7 +64,7 @@ app.get('/auth/token', async (req, res) => {
 
 
 
-      
+
 
       const response = await fetch('https://github.com/');
       const body = await response.text();
