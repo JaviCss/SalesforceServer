@@ -47,6 +47,15 @@ app.get('/auth/salesforce', async (req, res) => {
 })
 app.get('/auth/token', async (req, res) => {
 
+
+  const response = await fetch('https://github.com/');
+      const body = await response.text();
+
+      console.log(body);
+
+
+
+
   const { sheet, clean_sheet, id_sheet } = req.cookies
 
   if (false) { } else {
