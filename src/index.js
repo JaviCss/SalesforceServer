@@ -2,7 +2,7 @@ const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const axios = require('axios').default;
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 ///////
 const PORT = process.env.PORT || 4000
@@ -48,7 +48,7 @@ app.get('/auth/salesforce', async (req, res) => {
 app.get('/auth/token', async (req, res) => {
 
 
-  
+
 
 
 
@@ -59,18 +59,22 @@ app.get('/auth/token', async (req, res) => {
     if (clean_sheet) {
 
       const body = {
-        'client_id':'3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn',
-
-        'refresh_token':'5Aep8615B7Psrq3qblUf.WoheZoUyT1y82wXZsjM6sAQJWHa.YTxrZhlchqqyY1uWkmd53_xwKZkIalNDvIAfrG'
+        client_id: client_id,
+        refresh_token: clean_sheet
       }
+
+
+      const params = new URLSearchParams()
+      params.append('client_id', client_id)
+      params.append('refresh_token', clean_sheet)
+
 
       const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
         method: 'post',
-        body: body,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-      });
+        body: params
+      })
       const data = await response.json();
-      
+
       console.log(data);
 
 
