@@ -2,7 +2,7 @@ const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const axios = require('axios').default;
-
+import fetch from 'node-fetch';
 
 ///////
 const PORT = process.env.PORT || 4000
@@ -53,9 +53,21 @@ app.get('/auth/token', async (req, res) => {
     if (clean_sheet) {
 
 
+
+
+      
+
+      const response = await fetch('https://github.com/');
+      const body = await response.text();
+
+      console.log(body);
+
+      /*
+
       axios.post('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token',
       {          
-        client_id: client_id,             
+        client_id: client_id, 
+        grant_type: 'refresh_token',             
         refresh_token: clean_sheet 
       },
       {    
@@ -64,19 +76,19 @@ app.get('/auth/token', async (req, res) => {
       }).then(function (response) {
         console.log(response)
       }).catch( e =>  console.log(e.response))
+*/
 
 
 
-
-     /* 
-      var uri = oauth2.getAuthorizationUrl({
-        redirect_uri: redirect_uri,
-        client_id: client_id,
-        scope: 'refresh_token',
-        // You can change loginUrl to connect to sandbox or prerelease env.
-        //base_url: 'https://test.my.salesforce.com'
-      });
-      return res.redirect(uri)*/
+      /* 
+       var uri = oauth2.getAuthorizationUrl({
+         redirect_uri: redirect_uri,
+         client_id: client_id,
+         scope: 'refresh_token',
+         // You can change loginUrl to connect to sandbox or prerelease env.
+         //base_url: 'https://test.my.salesforce.com'
+       });
+       return res.redirect(uri)*/
     }
 
 
