@@ -1,7 +1,6 @@
 const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
-const axios = require('axios').default;
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 ///////
@@ -47,74 +46,38 @@ app.get('/auth/salesforce', async (req, res) => {
 })
 app.get('/auth/token', async (req, res) => {
 
-
-
-
-
-
-
   const { sheet, clean_sheet, id_sheet } = req.cookies
-
-  if (false) { } else {
+  let token
+  if (sheet) {
+    token = sheet
+  } else {
     if (clean_sheet) {
-
+      console.log('Token expired')
       const body = {
         client_id: client_id,
         refresh_token: clean_sheet
       }
-
-
       const params = new URLSearchParams()
       params.append('client_id', client_id)
       params.append('refresh_token', clean_sheet)
-
 
       const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
         method: 'post',
         body: params
       })
       const data = await response.json();
-
+      console.log('new token generated')
       console.log(data);
+      
 
+      res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, sameSite: 'none', secure: true })
+      res.cookie('clean_sheet', data.refresh_token, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+      res.cookie('id_sheet', data.instance_url, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
 
-
-      /*
-
-      axios.post('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token',
-      {          
-        client_id: client_id, 
-        grant_type: 'refresh_token',             
-        refresh_token: clean_sheet 
-      },
-      {    
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},           
-        maxBodyLength: 2000,         
-      }).then(function (response) {
-        console.log(response)
-      }).catch( e =>  console.log(e.response))
-*/
-
-
-
-      /* 
-       var uri = oauth2.getAuthorizationUrl({
-         redirect_uri: redirect_uri,
-         client_id: client_id,
-         scope: 'refresh_token',
-         // You can change loginUrl to connect to sandbox or prerelease env.
-         //base_url: 'https://test.my.salesforce.com'
-       });
-       return res.redirect(uri)*/
     }
 
 
   }
-
-
-  //console.log('sheet', sheet)
-  //console.log('clean_sheet', clean_sheet)
-  //console.log(id_sheet)
   res.json('listo')
 
 })
