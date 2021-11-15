@@ -49,6 +49,7 @@ app.get('/auth/token', async (req, res) => {
   const { sheet, clean_sheet, id_sheet } = req.cookies
   let token
   if (sheet) {
+    console.log('Token correct')
     token = sheet
   } else {
     if (clean_sheet) {
@@ -91,6 +92,8 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, function (error, payload) {
     let data = payload
     console.log(data)
+    let time =  new Date(data.issued_at)
+    console.log('Tiempo: ',time)
     res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, sameSite: 'none', secure: true })
     res.cookie('clean_sheet', data.refresh_token, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
     res.cookie('id_sheet', data.instance_url, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
@@ -117,7 +120,7 @@ let sample = {
   instance_url: 'https://venom.my.salesforce.com',
   id: 'https://login.salesforce.com/id/00D6g000005hXEMEA2/0056g0000032XSzAAM',
   token_type: 'Bearer',
-  issued_at: '1636557821642'
+  issued_at: '1636557821642' //16 36 99 9324109
 }
 
 /*
