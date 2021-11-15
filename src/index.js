@@ -67,7 +67,7 @@ app.get('/auth/token', async (req, res) => {
       const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
         method: 'post',
         body: JSON.stringify(body),
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        headers: {'Content-Type': 'application/json'}
       });
       const data = await response.json();
       
