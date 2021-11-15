@@ -48,10 +48,7 @@ app.get('/auth/salesforce', async (req, res) => {
 app.get('/auth/token', async (req, res) => {
 
 
-  const response = await fetch('https://httpbin.org/post', {method: 'POST', body: 'a=1'});
-  const data = await response.json();
-
-  console.log(data);
+  
 
 
 
@@ -61,15 +58,22 @@ app.get('/auth/token', async (req, res) => {
   if (false) { } else {
     if (clean_sheet) {
 
+      const body = {
+        client_id: client_id, 
+        grant_type: 'refresh_token',             
+        refresh_token: clean_sheet 
+      }
+
+      const response = await fetch('https://login.salesforce.com/services/oauth2/token', {
+        method: 'post',
+        body: JSON.stringify(body),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+      const data = await response.json();
+      
+      console.log(data);
 
 
-
-
-
-      const response = await fetch('https://github.com/');
-      const body = await response.text();
-
-      console.log(body);
 
       /*
 
