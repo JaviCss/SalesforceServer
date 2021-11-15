@@ -48,10 +48,10 @@ app.get('/auth/salesforce', async (req, res) => {
 app.get('/auth/token', async (req, res) => {
 
 
-  const response = await fetch('https://github.com/');
-  const body = await response.text();
+  const response = await fetch('https://httpbin.org/post', {method: 'POST', body: 'a=1'});
+  const data = await response.json();
 
-  console.log(body);
+  console.log(data);
 
 
 
