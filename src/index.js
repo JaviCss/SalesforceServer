@@ -94,9 +94,10 @@ app.get('/auth/handle_decision', async (req, res) => {
     console.log(data)
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
     console.log('Tiempo: ',time)
-    res.cookie('sheet', data.access_token, { expires: time, httpOnly: true, sameSite: 'none', secure: true })
-    res.cookie('clean_sheet', data.refresh_token, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-    res.cookie('id_sheet', data.instance_url, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+    let time_refresh =  new Date(new Date().getTime()+30*3600*1000).toGMTString()
+    res.cookie('sheet', data.access_token, { expire: time, httpOnly: true, sameSite: 'none', secure: true })
+    res.cookie('clean_sheet', data.refresh_token, { expire: time_refresh, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+    res.cookie('id_sheet', data.instance_url, { expire: time, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
 
 
 
