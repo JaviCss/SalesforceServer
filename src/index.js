@@ -99,7 +99,7 @@ app.get('/auth/handle_decision', async (req, res) => {
 
 
 
-    res.cookie('sheet', data.access_token, {  expires: new Date((Date.UTC() + (3600*1000))), httpOnly: true, sameSite: 'none', secure: true })
+    res.cookie('sheet', data.access_token, {  expires: new Date((Date.now() + (3600*1000))), httpOnly: true, sameSite: 'none', secure: true })
     res.cookie('clean_sheet', data.refresh_token, { maxAge: time_refresh, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
     res.cookie('id_sheet', data.instance_url, { maxAge: 3600*1000, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
 
