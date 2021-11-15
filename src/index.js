@@ -60,7 +60,7 @@ app.get('/auth/token', async (req, res) => {
 
       const body = {
         client_id: client_id, 
-        grant_type: 'refresh_token',             
+        grant_type: 'refresh_token&',             
         refresh_token: clean_sheet 
       }
 
