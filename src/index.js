@@ -2,7 +2,7 @@ const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-
+const tpl = require('tpl')
 ///////
 const PORT = process.env.PORT || 4000
 const app = express();
@@ -45,7 +45,6 @@ app.get('/auth/salesforce', async (req, res) => {
   return res.redirect(uri)
 })
 app.get('/auth/token', async (req, res) => {
-
   const { sheet, clean_sheet, id_sheet } = req.cookies
   let token
   if (sheet) {
@@ -61,7 +60,6 @@ app.get('/auth/token', async (req, res) => {
       const params = new URLSearchParams()
       params.append('client_id', client_id)
       params.append('refresh_token', clean_sheet)
-
       const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
         method: 'post',
         body: params
@@ -69,18 +67,20 @@ app.get('/auth/token', async (req, res) => {
       const data = await response.json();
       console.log('new token generated')
       console.log(data);
-      
+      res.cookie('sheet', data.access_token, { maxAge: (1 * 3600 * 1000), httpOnly: true, sameSite: 'none', secure: true })
+      res.cookie('clean_sheet', data.refresh_token, { maxAge: (30 * 24 * 3600 * 1000), httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+      res.cookie('id_sheet', data.instance_url, { maxAge: (30 * 24 * 3600 * 1000), httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+    } else {
+      token = 'undefined'
 
-      res.cookie('sheet', data.access_token, {  maxAge: (1*3600*1000), httpOnly: true, sameSite: 'none', secure: true })
-      res.cookie('clean_sheet', data.refresh_token, {  maxAge: (30*24*3600*1000) ,httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-      res.cookie('id_sheet', data.instance_url, { maxAge: (30*24*3600*1000), httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-
-      
     }
 
 
   }
-  res.json('listo')
+  res.json(token)
+
+  tpl.assign("auth", {token: token});
+  tpl.display("templates/auth.tpl");
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
@@ -102,9 +102,9 @@ app.get('/auth/handle_decision', async (req, res) => {
 
 
 
-    res.cookie('sheet', data.access_token, {  maxAge: (1*3600*1000), httpOnly: true, sameSite: 'none', secure: true })
-    res.cookie('clean_sheet', data.refresh_token, {  maxAge: (30*24*3600*1000) ,httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-    res.cookie('id_sheet', data.instance_url, { maxAge: (30*24*3600*1000), httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+    res.cookie('sheet', data.access_token, { maxAge: (1 * 3600 * 1000), httpOnly: true, sameSite: 'none', secure: true })
+    res.cookie('clean_sheet', data.refresh_token, { maxAge: (30 * 24 * 3600 * 1000), httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+    res.cookie('id_sheet', data.instance_url, { maxAge: (30 * 24 * 3600 * 1000), httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
 
 
 
