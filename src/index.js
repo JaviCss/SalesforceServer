@@ -78,9 +78,9 @@ app.get('/auth/token', async (req, res) => {
 
   }
   res.json(token)
-
-  tpl.assign("auth", {token: token});
-  tpl.display("templates/auth.tpl");
+  window.parent.postMessage({token: `${token}`}, '*');
+  //tpl.assign("auth", {token: token});
+  //tpl.display("templates/auth.tpl");
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
