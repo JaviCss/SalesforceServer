@@ -71,10 +71,11 @@ app.get('/auth/token', async (req, res) => {
       console.log(data);
       
 
-      res.cookie('sheet', data.access_token, { maxAge: data.issued_at, httpOnly: true, sameSite: 'none', secure: true })
-      res.cookie('clean_sheet', data.refresh_token, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-      res.cookie('id_sheet', data.instance_url, { httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+      res.cookie('sheet', data.access_token, {  maxAge: (1*3600*1000), httpOnly: true, sameSite: 'none', secure: true })
+      res.cookie('clean_sheet', data.refresh_token, {  maxAge: (30*24*3600*1000) ,httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+      res.cookie('id_sheet', data.instance_url, { maxAge: (30*24*3600*1000), httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
 
+      
     }
 
 
@@ -92,19 +93,18 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, function (error, payload) {
     let data = payload
     console.log(data)
+    /*
     let time1 =  new Date(Number(data.issued_at))
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
     console.log('Tiempo: ',time1)
-    console.log(time)
-
-    let time_refresh =  new Date(new Date().getTime()+30*24*3600*1000).toGMTString()
-    console.log('tiempo_refresh: ',time_refresh)
+    console.log(time)    let time_refresh =  new Date(new Date().getTime()+30*24*3600*1000).toGMTString()
+    console.log('tiempo_refresh: ',time_refresh)*/
 
 
 
-    res.cookie('sheet', data.access_token, { expires: new Date(Number(data.issued_at)), httpOnly: true, sameSite: 'none', secure: true })
-    res.cookie('clean_sheet', data.refresh_token, {  maxAge: (1*3600*1000) ,httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-    res.cookie('id_sheet', data.instance_url, { maxAge: (3600*1000), httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+    res.cookie('sheet', data.access_token, {  maxAge: (1*3600*1000), httpOnly: true, sameSite: 'none', secure: true })
+    res.cookie('clean_sheet', data.refresh_token, {  maxAge: (30*24*3600*1000) ,httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+    res.cookie('id_sheet', data.instance_url, { maxAge: (30*24*3600*1000), httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
 
 
 
