@@ -25,6 +25,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__dirname));
 app.use(cookieParser())
+app.set('view engine', 'ejs')
+app.set('view', __dirname + '/templates')
 
 //routes
 
@@ -77,8 +79,8 @@ app.get('/auth/token', async (req, res) => {
 
 
   }
-  res.json(token)
-  window.parent.postMessage({token: `${token}`}, '*');
+   res.render('auth',{token: token})
+  
   //tpl.assign("auth", {token: token});
   //tpl.display("templates/auth.tpl");
 
