@@ -23,7 +23,7 @@ app.set('trust proxy', 1)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static(__dirname));
+//app.use(express.static(__dirname));
 app.use(cookieParser())
 app.set('view engine', 'ejs')
 app.set('view', __dirname + '/templates')
