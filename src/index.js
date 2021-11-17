@@ -2,7 +2,7 @@ const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const tpl = require('tpl')
+
 ///////
 const PORT = process.env.PORT || 4000
 const app = express();
