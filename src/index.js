@@ -37,7 +37,7 @@ app.post('/auth/salesforce', async (req, res) => {
     client_id: consumeri,
     scope: 'api refresh_token', // 'id api web refresh_token'
   })
-  return res.send(`<script>window.open("${uri}", "Diseño Web", "width=500, height=500")</script >`)
+  return res.send(`${uri}`)
 })
 app.get('/auth/token', async (req, res) => {
   const { sheet, clean_sheet, id_sheet } = req.cookies
