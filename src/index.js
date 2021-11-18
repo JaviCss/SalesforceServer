@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 //routes
 app.listen(app.get('port'), () => { })
-app.get('/auth/salesforce', async (req, res) => {
+app.post('/auth/salesforce', async (req, res) => {
 
   const { consumeri, consumers } = req.headers
 
