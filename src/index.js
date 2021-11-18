@@ -13,41 +13,31 @@ let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm12
 let client_secret = 'CD676C6964227D3163149B6BD77C30EBFBDEBA05DF93F759F9FA873E59219C22'
 let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 
-
-
 //config
 app.set('port', PORT)
 app.set('trust proxy', 1)
 app.set('views', path.join(__dirname, 'templates'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
-
 //midelware
-
-
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 //app.use(express.static(__dirname));
 app.use(cookieParser())
-
 //routes
-
 app.listen(app.get('port'), () => { })
-/*
-let client_id  
-let client_secret 
-let redirect_uri 
-let subdomain zat
-let ticket
-*/
 app.get('/auth/salesforce', async (req, res) => {
+
+  const { consumeri, consumers } = req.headers
+
+
+
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
-    client_id: client_id,
+    client_id: consumeri,
     scope: 'api refresh_token', // 'id api web refresh_token'
   })
-  return res.redirect(uri)
+  return res.send(`<script>window.open("${uri}", "Diseño Web", "width=500, height=500")</script >`)
 })
 app.get('/auth/token', async (req, res) => {
   const { sheet, clean_sheet, id_sheet } = req.cookies
