@@ -18,7 +18,7 @@ let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 //config
 app.set('port', PORT)
 app.set('trust proxy', 1)
-app.set('views', path.join(__dirname, 'vistas'));
+app.set('views', path.join(__dirname, 'templates'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
