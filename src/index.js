@@ -18,8 +18,9 @@ let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 //config
 app.set('port', PORT)
 app.set('trust proxy', 1)
-app.set('view engine', 'ejs')
-app.set('view', __dirname + '/templates')
+app.set('views', path.join(__dirname, 'vistas'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
 //midelware
 
 
@@ -80,7 +81,8 @@ app.get('/auth/token', async (req, res) => {
 
 
   }
-   res.render('auth',{token: token})
+   res.render('auth.html',
+   {token: token})
   
   //tpl.assign("auth", {token: token});
   //tpl.display("templates/auth.tpl");
