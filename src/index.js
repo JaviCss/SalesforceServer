@@ -39,7 +39,7 @@ app.post('/auth/salesforce', async (req, res) => {
     scope: 'api refresh_token', // 'id api web refresh_token'
   })
   res.cookie('consumer_id_sheet', consumeri, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
-  return res.send(`${uri}`)
+  res.send(`${uri}`)
 
 })
 
