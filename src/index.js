@@ -52,12 +52,9 @@ app.get('/auth/token', async (req, res) => {
   } else {
     if (clean_sheet) {
       console.log('Token expired')
-      const body = {
-        client_id: client_id,
-        refresh_token: clean_sheet
-      }
+    
       const params = new URLSearchParams()
-      params.append('client_id', consumer_id_sheet)
+      params.append('client_id', client_id)
       params.append('refresh_token', clean_sheet)
       const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
         method: 'post',
