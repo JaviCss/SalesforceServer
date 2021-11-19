@@ -38,7 +38,7 @@ app.post('/auth/salesforce', async (req, res) => {
     client_id: consumeri,
     scope: 'api refresh_token', // 'id api web refresh_token'
   })
-  res.cookie('consumer_id_sheet', consumeri, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
+  res.cookie('consumer_id_sheet', 'consumeri', { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
   res.send(`${uri}`)
 
 })
@@ -71,13 +71,9 @@ app.get('/auth/token', async (req, res) => {
       
     } else {
       token = 'undefined'
-
     }
-
-
   }
-  res.render('auth.html',
-    { token: token })
+  res.render('auth.html', { token: token })
 
   //tpl.assign("auth", {token: token});
   //tpl.display("templates/auth.tpl");
