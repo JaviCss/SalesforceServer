@@ -31,7 +31,7 @@ app.use(cookieParser())
 app.listen(app.get('port'), () => { })
 
 //SALESFORCE
-app.post('/auth/salesforce', async (req, res) => {
+app.get('/auth/salesforce', async (req, res) => {
   const { consumeri } = req.headers
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
