@@ -66,7 +66,7 @@ app.get('/auth/token', async (req, res) => {
       const data = await response.json();
       console.log('new token generated')
       console.log(data);
-      res.cookie('sheet', data.access_token, { maxAge: (100 * 1000), httpOnly: true, sameSite: 'none', secure: true })
+      res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
       
     } else {
       token = 'undefined'
@@ -94,7 +94,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     console.log('Tiempo: ',time1)
     console.log(time)    let time_refresh =  new Date(new Date().getTime()+30*24*3600*1000).toGMTString()
     console.log('tiempo_refresh: ',time_refresh)*/
-    res.cookie('sheet', data.access_token, { maxAge: (1 * 100 * 1000), httpOnly: true, sameSite: 'none', secure: true })
+    res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
     res.cookie('clean_sheet', data.refresh_token, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
     res.cookie('id_sheet', data.instance_url, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
 
