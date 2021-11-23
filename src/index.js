@@ -36,8 +36,12 @@ app.listen(app.get('port'), () => { })
 
 app.get('/auth/login', async (req, res) => {
   const { consumeri, consumers } = req.headers
-  var uri = ''
-  // opens the url in the default browser 
+  var uri = oauth2.getAuthorizationUrl({
+    redirect_uri: redirect_uri,
+    client_id: consumeri,
+    scope: ' openid api web refresh_token', // 'id api web refresh_token'
+  })
+    // opens the url in the default browser 
  await open(`https://server-sf.herokuapp.com/auth/salesforce&id=${consumeri}`, {wait: true})
  //res.send(`${uri}`)
   res.send(`window.open(${uri},"Login SalesForce", "width=500, height=500")`) 
