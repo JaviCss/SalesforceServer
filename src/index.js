@@ -10,7 +10,7 @@ const app = express();
 
 
 let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
-//let client_secret = 'CD676C6964227D3163149B6BD77C30EBFBDEBA05DF93F759F9FA873E59219C22'
+let client_secret = 'CD676C6964227D3163149B6BD77C30EBFBDEBA05DF93F759F9FA873E59219C22'
 let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 
 //config
@@ -36,7 +36,7 @@ app.get('/auth/salesforce', async (req, res) => {
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: consumeri,
-    scope: 'openid api web refresh_token', // 'id api web refresh_token'
+    scope: ' openid api web refresh_token', // 'id api web refresh_token'
   })
  res.send(`${uri}`)
   res.end()
@@ -80,6 +80,7 @@ app.get('/auth/handle_decision', async (req, res) => {
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: client_id,
+    client_secret: client_secret,
     code: authorizationCode,
   }, function (error, payload) {
     let data = payload
