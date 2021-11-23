@@ -38,6 +38,7 @@ app.get('/auth/salesforce', async (req, res) => {
     client_id: consumeri,
     scope: ' openid api web refresh_token', // 'id api web refresh_token'
   })
+  res.cookie('consumer_id_sheet', client_id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
  res.send(`${uri}`)
   res.end()
 })
@@ -94,7 +95,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
     res.cookie('clean_sheet', data.refresh_token, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
     res.cookie('id_sheet', data.instance_url, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-    res.cookie('consumer_id_sheet', client_id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
+   
 
 
     res.send("<script>window.close();</script >")
