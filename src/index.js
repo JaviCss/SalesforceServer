@@ -38,7 +38,7 @@ app.get('/auth/login', async (req, res) => {
   const { consumeri, consumers } = req.headers
   var uri = ''
   // opens the url in the default browser 
- await open(`https://server-sf.herokuapp.com/auth/salesforce&id=${consumeri}`)
+ await open(`https://server-sf.herokuapp.com/auth/salesforce&id=${consumeri}`, {wait: true})
  //res.send(`${uri}`)
   res.send(`window.open(${uri},"Login SalesForce", "width=500, height=500")`) 
  res.end()
