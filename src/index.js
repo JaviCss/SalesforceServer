@@ -3,6 +3,9 @@ const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const path = require('path');
+const open = require('open');
+
+
 ///////
 const PORT = process.env.PORT || 4000
 const app = express();
@@ -29,6 +32,17 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 //routes
 app.listen(app.get('port'), () => { })
+//idclient
+
+app.get('/auth/login', async (req, res) => {
+  const { consumeri, consumers } = req.headers
+  var uri = ''
+  // opens the url in the default browser 
+  open(`https://server-sf.herokuapp.com/auth/salesforce&id=${consumeri}`);
+ //res.send(`${uri}`)
+  res.send(`window.open(${uri},"Login SalesForce", "width=500, height=500")`) 
+ res.end()
+})
 
 //SALESFORCE
 app.get('/auth/salesforce', async (req, res) => {
