@@ -39,8 +39,9 @@ app.get('/auth/salesforce', async (req, res) => {
     scope: ' openid api web refresh_token', // 'id api web refresh_token'
   })
   res.cookie('consumer_id_sheet', client_id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
- res.send(`${uri}`)
-  res.end()
+ //res.send(`${uri}`)
+  res.send(`<script> window.open(${uri}, "Login SalesForce", "width=500, height=500")</script > `) 
+ res.end()
 })
 
 //TOKEN
