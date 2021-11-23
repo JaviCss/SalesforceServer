@@ -42,7 +42,7 @@ app.get('/auth/login', async (req, res) => {
     scope: ' openid api web refresh_token', // 'id api web refresh_token'
   })
     // opens the url in the default browser 
- await open(`https://server-sf.herokuapp.com/auth/salesforce&id=${consumeri}`, {wait: true})
+  open(`https://server-sf.herokuapp.com/auth/salesforce&id=${consumeri}`, {wait: true})
  //res.send(`${uri}`)
   res.send(`window.open("${uri}","Login SalesForce", "width=500, height=500")`) 
  res.end()
