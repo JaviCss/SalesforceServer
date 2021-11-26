@@ -50,15 +50,16 @@ app.get('/auth/login', async (req, res) => {
 
 //SALESFORCE
 app.get('/auth/salesforce', async (req, res) => {
-  const { consumeri } = req.headers
+  const { consumeri } = req.params
+
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: consumeri,
     scope: ' openid api web refresh_token', // 'id api web refresh_token'
   })
-  res.cookie('consumer_id_sheet', client_id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
+  res.cookie('consumer_id_sheet', consumeri, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
  //res.send(`${uri}`)
-  res.send(`window.open(${uri},"Login SalesForce", "width=500, height=500")`) 
+ res.redirect(uri)
  res.end()
 })
 
