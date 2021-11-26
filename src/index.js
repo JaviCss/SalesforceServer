@@ -37,7 +37,6 @@ app.listen(app.get('port'), () => { })
 //SALESFORCE
 app.get('/auth/salesforce', async (req, res) => {
   const id  = req.query.state
-console.log(id)
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: id,
@@ -45,7 +44,7 @@ console.log(id)
   })
   res.cookie('consumer_id_sheet', id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
  //res.send(`${uri}`)
- //res.redirect(uri)
+ res.redirect(uri)
  res.end()
  
 })
