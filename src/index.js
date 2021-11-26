@@ -50,7 +50,7 @@ app.get('/auth/login', async (req, res) => {
 
 //SALESFORCE
 app.get('/auth/salesforce', async (req, res) => {
-  const id  = req.query.id
+  const id  = req.query.state
 console.log(id)
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
