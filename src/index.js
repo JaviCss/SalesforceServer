@@ -32,21 +32,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 //routes
 app.listen(app.get('port'), () => { })
-//idclient
 
-app.get('/auth/login', async (req, res) => {
-  const { consumeri, consumers } = req.headers
-  var uri = oauth2.getAuthorizationUrl({
-    redirect_uri: redirect_uri,
-    client_id: consumeri,
-    scope: ' openid api web refresh_token', // 'id api web refresh_token'
-  })
-    // opens the url in the default browser 
-  open(`https://server-sf.herokuapp.com/auth/salesforce&id=${consumeri}`, {wait: true})
- //res.send(`${uri}`)
-  res.send(`<script>window.open("${uri}","Login SalesForce", "width=500, height=500")</script>`) 
- res.end()
-})
 
 //SALESFORCE
 app.get('/auth/salesforce', async (req, res) => {
@@ -59,7 +45,8 @@ console.log(id)
   })
   res.cookie('consumer_id_sheet', id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
  //res.send(`${uri}`)
- res.redirect(uri)
+ //res.redirect(uri)
+ res.end()
  
 })
 
