@@ -12,7 +12,7 @@ const app = express();
 
 
 
-let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
+//let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
 let client_secret = 'CD676C6964227D3163149B6BD77C30EBFBDEBA05DF93F759F9FA873E59219C22'
 let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 
@@ -40,7 +40,7 @@ app.get('/auth/salesforce', async (req, res) => {
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: id,
-    scope: ' openid api web refresh_token', // 'id api web refresh_token'
+    scope: 'api web refresh_token', // 'id api web refresh_token'
   })
   res.cookie('consumer_id_sheet', id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
  //res.send(`${uri}`)
@@ -61,7 +61,7 @@ app.get('/auth/token', async (req, res) => {
       console.log('Token expired')
     
       const params = new URLSearchParams()
-      params.append('client_id', client_id)
+      params.append('client_id', consumer_id_sheet)
       params.append('refresh_token', clean_sheet)
       const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
         method: 'post',
@@ -83,10 +83,11 @@ app.get('/auth/token', async (req, res) => {
 
 })
 app.get('/auth/handle_decision', async (req, res) => {
+  const { sheet, clean_sheet, id_sheet,consumer_id_sheet } = req.cookies
   var authorizationCode = req.query.code
   oauth2.authenticate({
     redirect_uri: redirect_uri,
-    client_id: client_id,
+    client_id: consumer_id_sheet,
     client_secret: client_secret,
     code: authorizationCode,
   }, function (error, payload) {
