@@ -3,13 +3,10 @@ const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const path = require('path');
-const open = require('open');
-
 
 ///////
 const PORT = process.env.PORT || 4000
 const app = express();
-
 
 
 //let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
@@ -51,7 +48,7 @@ app.get('/auth/salesforce', async (req, res) => {
 
 //TOKEN
 app.get('/auth/token', async (req, res) => {
-  const { sheet, clean_sheet, id_sheet,consumer_id_sheet } = req.cookies
+  const { sheet, clean_sheet, url_sheet,consumer_id_sheet } = req.cookies
   let token
   if (sheet) {
     console.log('Token correct')
@@ -59,7 +56,6 @@ app.get('/auth/token', async (req, res) => {
   } else {
     if (clean_sheet) {
       console.log('Token expired')
-    
       const params = new URLSearchParams()
       params.append('client_id', consumer_id_sheet)
       params.append('refresh_token', clean_sheet)
@@ -69,30 +65,25 @@ app.get('/auth/token', async (req, res) => {
       })
       const data = await response.json();
       console.log('new token generated')
-      console.log(data);
-      res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
-      
+      res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })      
     } else {
       token = 'undefined'
     }
   }
   res.render('auth.html', { token: token })
-
   //tpl.assign("auth", {token: token});
   //tpl.display("templates/auth.tpl");
-
 })
 app.get('/auth/handle_decision', async (req, res) => {
-  const { sheet, clean_sheet, id_sheet,consumer_id_sheet } = req.cookies
+  const { sheet, clean_sheet, url_sheet,consumer_id_sheet } = req.cookies
   var authorizationCode = req.query.code
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: consumer_id_sheet,
-    client_secret: client_secret,
+    client_secret: '',
     code: authorizationCode,
   }, function (error, payload) {
     let data = payload
-    console.log(data)
     /*
     let time1 =  new Date(Number(data.issued_at))
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
@@ -101,37 +92,10 @@ app.get('/auth/handle_decision', async (req, res) => {
     console.log('tiempo_refresh: ',time_refresh)*/
     res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
     res.cookie('clean_sheet', data.refresh_token, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-    res.cookie('id_sheet', data.instance_url, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-   
-
-
+    res.cookie('url_sheet', data.instance_url, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
     res.send("<script>window.close();</script >")
     res.end()
 
   })
 })
-//app.use(express.static(__dirname + '/src'));
 
-
-
-
-
-
-
-let sample = {
-  access_token: '00D6g000005hXEM!AQIAQKN0oBvoAVNFLX_jBG1bE29DwMjzg6JisOmsZu7ZCtNHYH0Y6gM9LW_VsmPwznN850fKLucK185R99vCiKlZYIPNAh',
-  signature: 'O3UfpqpSdeY/pFlbvqaVih8tp+J2nKD8Nd+FrZ0vz6s=',
-  scope: 'api',
-  instance_url: 'https://venom.my.salesforce.com',
-  id: 'https://login.salesforce.com/id/00D6g000005hXEMEA2/0056g0000032XSzAAM',
-  token_type: 'Bearer',
-  issued_at: '1636557821642' //16 36 99 9324109
-}
-
-/*
-5Aep8615B7Psrq3qblUf.WoheZoUyT1y82wXZsjM6sAQJWHa.ZuOej14Hx4cdOw3pGQt_hbdJ74PXDM1sSRPNgQ
-5Aep8615B7Psrq3qblUf.WoheZoUyT1y82wXZsjM6sAQJWHa.Y5FG7Y6_jf.QdhsRNesITg4Aunl2N0QxRtAdBv
-
-
-
-*/
