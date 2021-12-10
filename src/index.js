@@ -10,7 +10,7 @@ const app = express();
 
 
 //let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
-let client_secret = 'CD676C6964227D3163149B6BD77C30EBFBDEBA05DF93F759F9FA873E59219C22'
+let client_secret = '0FD86DB0FA9DB7013019B7F41F80697E836379B6048A983A5DF733BCF8DB0BF1'
 let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
 
 //config
