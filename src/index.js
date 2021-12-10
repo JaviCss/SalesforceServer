@@ -65,6 +65,7 @@ app.get('/auth/token', async (req, res) => {
         body: params
       })
       const data = await response.json();
+      console.log(data)
       console.log('new token generated')
       res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })      
     } else {
