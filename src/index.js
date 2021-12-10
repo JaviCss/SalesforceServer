@@ -87,6 +87,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     code: authorizationCode,
   }, function (error, payload) {
     let data = payload
+    console.log(data)
     /*
     let time1 =  new Date(Number(data.issued_at))
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
