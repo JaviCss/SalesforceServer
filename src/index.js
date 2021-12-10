@@ -85,6 +85,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     client_id: consumer_id_sheet,
     client_secret: client_secret,
     code: authorizationCode,
+    base_url: 'https://test.salesforce.com',
   }, function (error, payload) {
     let data = payload
     console.log(data)
