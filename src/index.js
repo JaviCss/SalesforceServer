@@ -60,7 +60,7 @@ app.get('/auth/token', async (req, res) => {
       const params = new URLSearchParams()
       params.append('client_id', consumer_id_sheet)
       params.append('refresh_token', clean_sheet)
-      const response = await fetch('https://test.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
+      const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
         method: 'post',
         body: params
       })
@@ -78,6 +78,7 @@ app.get('/auth/token', async (req, res) => {
 app.get('/auth/handle_decision', async (req, res) => {
   const { sheet, clean_sheet, url_sheet,consumer_id_sheet } = req.cookies
   var authorizationCode = req.query.code
+  console.log(authorizationCode)
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: consumer_id_sheet,
