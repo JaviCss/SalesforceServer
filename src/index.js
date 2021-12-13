@@ -72,7 +72,7 @@ app.get('/auth/token', async (req, res) => {
       token = 'undefined'
     }
   }
-  res.render('auth.html', { token: token })
+  res.render('auth.html', { token: token , instance_url: url_sheet})
   //tpl.assign("auth", {token: token});
   //tpl.display("templates/auth.tpl");
 })
