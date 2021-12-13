@@ -81,12 +81,12 @@ app.get('/auth/handle_decision', async (req, res) => {
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: consumer_id_sheet,
-    client_secret: '',
+    client_secret: client_secret,
     code: authorizationCode,
     base_url: 'https://test.salesforce.com',
   }, function (error, payload) {
     let data = payload
-    console.log(data)
+    console.log( 'payload: ',data)
     /*
     let time1 =  new Date(Number(data.issued_at))
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
