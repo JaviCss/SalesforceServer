@@ -38,7 +38,7 @@ app.get('/auth/salesforce', async (req, res) => {
     redirect_uri: redirect_uri,
     client_id: id,
     scope: 'api web refresh_token', // 'id api web refresh_token'
-    base_url: 'https://test.salesforce.com'
+  //  base_url: 'https://test.salesforce.com'
   })
   res.cookie('consumer_id_sheet', id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
  //res.send(`${uri}`)
@@ -73,9 +73,7 @@ app.get('/auth/token', async (req, res) => {
     }
   }
   res.render('auth.html', { token: token , instance_url: url_sheet})
-  //tpl.assign("auth", {token: token});
-  //tpl.display("templates/auth.tpl");
-})
+ })
 app.get('/auth/handle_decision', async (req, res) => {
   const { sheet, clean_sheet, url_sheet,consumer_id_sheet } = req.cookies
   var authorizationCode = req.query.code
@@ -85,7 +83,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     client_id: consumer_id_sheet,
     client_secret: '',
     code: authorizationCode,
-    base_url: 'https://test.salesforce.com',
+    //base_url: 'https://test.salesforce.com',
   }, function (error, payload) {
     let data = payload
     console.log(data)
