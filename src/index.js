@@ -83,7 +83,7 @@ app.get('/auth/handle_decision', async (req, res) => {
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: consumer_id_sheet,
-    client_secret: client_secret,
+    client_secret: '',
     code: authorizationCode,
     base_url: 'https://test.salesforce.com',
   }, function (error, payload) {
