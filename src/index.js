@@ -90,10 +90,11 @@ app.get('/auth/handle_decision', async (req, res) => {
     let data = payload
     console.log('payload: ', data)
 
-    var timestamp = Number(data.issued_at)
-    var date = new Date(timestamp*1000);
+    var timestamp = 3600*24
+    var date = new Date(timestamp);
     console.log('timestamp', date.getTime())
     console.log(date)
+    console.log(date.toGMTString())
 
 
    res.cookie('sheet', data.access_token, { maxAge: data.issued_at , httpOnly: true, sameSite: 'none', secure: true })
