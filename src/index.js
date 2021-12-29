@@ -3,6 +3,7 @@ const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const path = require('path');
+const { setUser, getUser, checkUser,updateUser } = require('./controllers/index.controller')
 
 ///////
 const PORT = process.env.PORT || 4000
@@ -32,24 +33,53 @@ app.listen(app.get('port'), () => { })
 
 
 //SALESFORCE
+
+app.post('/auth/user', async (req, res) => {
+  let user = await checkUser(req, res)
+  if (user.length === 0) {
+    console.log('user dont exist')
+    setUser(req, res ) 
+  } else {
+    console.log('usuario existe')
+    let { consumeri, consumers, domain } = user[0]
+    if (consumeri === req.body.consumeri && consumers === req.body.consumers && domain === req.body.domain ) {
+      console.log('credenciales correctas')
+      res.status(200).end()
+    }else{
+      console.log('actualizando credenciales')
+     let updateuser = await  updateUser(req, res)
+    }
+  }
+
+  
+})
+
 app.get('/auth/salesforce', async (req, res) => {
-  const id  = req.query.state
+ // const domain = req.query.domain
+  
+ console.log(req)
+
+
+
+
+
+
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: id,
     scope: 'api web refresh_token', // 'id api web refresh_token'
-   base_url: 'https://test.salesforce.com'
+    base_url: 'https://test.salesforce.com'
   })
   res.cookie('consumer_id_sheet', id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
- //res.send(`${uri}`)
- res.redirect(uri)
- res.end()
- 
+  //res.send(`${uri}`)
+  res.redirect(uri)
+  res.end()
+
 })
 
 //TOKEN
 app.get('/auth/token', async (req, res) => {
-  const { sheet, clean_sheet, url_sheet,consumer_id_sheet } = req.cookies
+  const { sheet, clean_sheet, url_sheet, consumer_id_sheet } = req.cookies
   let token
   if (sheet) {
     console.log('Token correct')
@@ -67,15 +97,17 @@ app.get('/auth/token', async (req, res) => {
       const data = await response.json();
       console.log(data)
       console.log('new token generated')
-      res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })      
+      res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
     } else {
       token = 'undefined'
     }
   }
-  res.render('auth.html', { token: token , instance_url: url_sheet})
- })
+  res.render('auth.html', { token: token, instance_url: url_sheet })
+})
+
+
 app.get('/auth/handle_decision', async (req, res) => {
-  const { sheet, clean_sheet, url_sheet,consumer_id_sheet } = req.cookies
+  const { sheet, clean_sheet, url_sheet, consumer_id_sheet } = req.cookies
   var authorizationCode = req.query.code
   console.log(authorizationCode)
   oauth2.authenticate({
@@ -86,7 +118,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     base_url: 'https://test.salesforce.com',
   }, function (error, payload) {
     let data = payload
-    console.log( 'payload: ',data)
+    console.log('payload: ', data)
     /*
     let time1 =  new Date(Number(data.issued_at))
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
