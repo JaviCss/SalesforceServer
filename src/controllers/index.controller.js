@@ -18,7 +18,6 @@ const pool = new Pool({
 const getUser = async (domain) => {
     try {
     const response = await pool.query('SELECT * FROM usuarios WHERE domain = ($1)', [domain])  
-    console.log(response.rows)
     return response.rows
     } catch (error) {
         console.log(error)

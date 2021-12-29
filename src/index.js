@@ -68,8 +68,10 @@ app.get('/auth/salesforce', async (req, res) => {
     scope: 'api web refresh_token', // 'id api web refresh_token'
     base_url: 'https://test.salesforce.com'
   })
+
+  /*
   res.cookie('consumer_id_sheet', id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
-  //res.send(`${uri}`)
+  //res.send(`${uri}`)*/
   res.redirect(uri)
   res.end()
 
