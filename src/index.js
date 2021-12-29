@@ -55,16 +55,13 @@ app.post('/auth/user', async (req, res) => {
 })
 
 app.get('/auth/salesforce', async (req, res) => {
- // const domain = req.query.domain
-  let domain = req.headers.host
+  let user = await checkUser(req, res)
+  console.log(user)
+  const domain = req.query.domain
+  
 
  console.log(domain)
- var Origin = req.get('Origin');
-console.log(Origin)
- var Host = req.get('Host');
-console.log(Host)
-
-
+ 
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: id,
