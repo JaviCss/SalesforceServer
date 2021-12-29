@@ -72,7 +72,7 @@ const updateUserTokenRefresh = async (tokenrefresh, domain) => {
             user: { tokenrefresh }
         }
     }
-    res.status(200).json(resmsj)
+    
     return resmsj
 }
 

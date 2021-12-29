@@ -92,7 +92,7 @@ app.get('/auth/handle_decision', async (req, res) => {
 
     await updateUserTokenRefresh(data.refresh_token, domain)
   
-    res.cookie('sheet', data.access_token, { maxAge: payload.issued_at*3600*24 , httpOnly: true, sameSite: 'none', secure: true })
+    res.cookie('sheet', data.access_token, { maxAge: data.issued_at*3600*24 , httpOnly: true, sameSite: 'none', secure: true })
     /*
     let time1 =  new Date(Number(data.issued_at))
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
