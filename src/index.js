@@ -60,7 +60,7 @@ app.get('/auth/salesforce', async (req, res) => {
   
   
 
- console.log(user)
+   console.log(user)
  
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
