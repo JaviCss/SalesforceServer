@@ -62,10 +62,24 @@ const updateUser = async (req, res) => {
     res.status(200).json(resmsj)
     return resmsj
 }
+const updateUserTokenRefresh = async (tokenrefresh, domain) => {
+    const response = await pool.query('UPDATE usuarios SET (tokenrefresh) = ($1) WHERE domain = $2', [tokenrefresh, domain])
+    const resmsj = {
+        message: 'Credentials update succesfully',
+        command: response.command,
+        rowCount: response.rowCount,
+        body: {
+            user: { tokenrefresh }
+        }
+    }
+    res.status(200).json(resmsj)
+    return resmsj
+}
 
 module.exports = {
     getUser,
     setUser,
     checkUser,
-    updateUser
+    updateUser,
+    updateUserTokenRefresh
 }

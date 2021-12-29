@@ -3,7 +3,7 @@ const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const path = require('path');
-const { setUser, getUser, checkUser,updateUser } = require('./controllers/index.controller')
+const { setUser, getUser, checkUser,updateUser,updateUserTokenRefresh } = require('./controllers/index.controller')
 
 ///////
 const PORT = process.env.PORT || 4000
@@ -68,7 +68,6 @@ app.get('/auth/salesforce', async (req, res) => {
     scope: 'api web refresh_token', // 'id api web refresh_token'
     base_url: 'https://test.salesforce.com'
   })
-
   
   res.cookie('domain', domain, { maxAge: 2147483647 , httpOnly: true, sameSite: 'none', secure: true })
   //res.send(`${uri}`)*/
@@ -81,28 +80,30 @@ app.get('/auth/handle_decision', async (req, res) => {
   const { domain } = req.cookies
   let user = await getUser(domain)
   var authorizationCode = req.query.code
-
-
-  
-
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: user[0].consumeri,
     client_secret: user[0].consumers,
     code: authorizationCode,
     base_url: 'https://test.salesforce.com',
-  }, function (error, payload) {
+  }, async function (error, payload) {
     let data = payload
     console.log('payload: ', data)
+
+    await updateUserTokenRefresh(data.refresh_token, domain)
+  
+    res.cookie('sheet', data.access_token, { maxAge: payload.issued_at*3600*24 , httpOnly: true, sameSite: 'none', secure: true })
     /*
     let time1 =  new Date(Number(data.issued_at))
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
     console.log('Tiempo: ',time1)
     console.log(time)    let time_refresh =  new Date(new Date().getTime()+30*24*3600*1000).toGMTString()
     console.log('tiempo_refresh: ',time_refresh)
-    res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
+    
     res.cookie('clean_sheet', data.refresh_token, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
     res.cookie('url_sheet', data.instance_url, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })*/
+
+
     res.send("<script>window.close();</script >")
     res.end()
 
