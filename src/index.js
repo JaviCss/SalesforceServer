@@ -56,8 +56,8 @@ app.post('/auth/user', async (req, res) => {
 
 app.get('/auth/salesforce', async (req, res) => {
  // const domain = req.query.domain
-  
- console.log(req)
+  let domain = req.get('origin')
+ console.log(domain)
 
 
 
