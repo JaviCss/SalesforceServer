@@ -59,7 +59,7 @@ app.post('/auth/user', async (req, res) => {
 
 app.get('/auth/salesforce', async (req, res) => {
   const domain = req.query.domain
-  let user = getUser(domain)
+  let user = await getUser(domain)
   console.log(user)
  
   var uri = oauth2.getAuthorizationUrl({
