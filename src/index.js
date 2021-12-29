@@ -58,10 +58,10 @@ app.get('/auth/salesforce', async (req, res) => {
  // const domain = req.query.domain
   let domain = req.hostname
  console.log(domain)
-
-
-
-
+ var Origin = req.get('Origin');
+console.log(Origin)
+ var Host = req.get('Host');
+console.log(Host)
 
 
   var uri = oauth2.getAuthorizationUrl({
