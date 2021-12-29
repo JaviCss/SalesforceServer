@@ -60,14 +60,11 @@ app.post('/auth/user', async (req, res) => {
 app.get('/auth/salesforce', async (req, res) => {
   const domain = req.query.domain
   let user = getUser(domain)
-  
-  
-
-   console.log(user)
+  console.log(user)
  
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
-    client_id: id,
+    client_id: user[0].consumeri,
     scope: 'api web refresh_token', // 'id api web refresh_token'
     base_url: 'https://test.salesforce.com'
   })
