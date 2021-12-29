@@ -70,41 +70,12 @@ app.get('/auth/salesforce', async (req, res) => {
   })
 
   
-  res.cookie('domain', id, { maxAge: 2147483647 , httpOnly: true, sameSite: 'none', secure: true })
+  res.cookie('domain', domain, { maxAge: 2147483647 , httpOnly: true, sameSite: 'none', secure: true })
   //res.send(`${uri}`)*/
   res.redirect(uri)
   res.end()
 
 })
-
-//TOKEN
-app.get('/auth/token', async (req, res) => {
-  const { sheet, clean_sheet, url_sheet, consumer_id_sheet } = req.cookies
-  let token
-  if (sheet) {
-    console.log('Token correct')
-    token = sheet
-  } else {
-    if (clean_sheet) {
-      console.log('Token expired')
-      const params = new URLSearchParams()
-      params.append('client_id', consumer_id_sheet)
-      params.append('refresh_token', clean_sheet)
-      const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
-        method: 'post',
-        body: params
-      })
-      const data = await response.json();
-      console.log(data)
-      console.log('new token generated')
-      res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
-    } else {
-      token = 'undefined'
-    }
-  }
-  res.render('auth.html', { token: token, instance_url: url_sheet })
-})
-
 
 app.get('/auth/handle_decision', async (req, res) => {
   const { domain } = req.cookies
@@ -138,3 +109,31 @@ app.get('/auth/handle_decision', async (req, res) => {
   })
 })
 
+
+//TOKEN
+app.get('/auth/token', async (req, res) => {
+  const { sheet, clean_sheet, url_sheet, consumer_id_sheet } = req.cookies
+  let token
+  if (sheet) {
+    console.log('Token correct')
+    token = sheet
+  } else {
+    if (clean_sheet) {
+      console.log('Token expired')
+      const params = new URLSearchParams()
+      params.append('client_id', consumer_id_sheet)
+      params.append('refresh_token', clean_sheet)
+      const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
+        method: 'post',
+        body: params
+      })
+      const data = await response.json();
+      console.log(data)
+      console.log('new token generated')
+      res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
+    } else {
+      token = 'undefined'
+    }
+  }
+  res.render('auth.html', { token: token, instance_url: url_sheet })
+})
