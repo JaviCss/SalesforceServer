@@ -12,11 +12,10 @@ const pool = new Pool({
 
 
 
-const getUser = async (req, res) => {
-
-    const response = await pool.query('SELECT * FROM usuarios')
+const getUser = async (domain) => {
+    const response = await pool.query('SELECT * FROM usuarios WHERE domain = ($1)', [domain])  
     console.log(response.rows)
-    res.status(200).json(response.rows)
+    return response.rows
 }
 
 

@@ -56,11 +56,11 @@ app.post('/auth/user', async (req, res) => {
 
 app.get('/auth/salesforce', async (req, res) => {
   const domain = req.query.domain
-  const response = await pool.query('SELECT * FROM usuarios WHERE domain = ($1)', [domain])
+  let user = getUser(domain)
   
   
 
- console.log(response.row)
+ console.log(user)
  
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
