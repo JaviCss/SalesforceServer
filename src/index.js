@@ -90,15 +90,13 @@ app.get('/auth/handle_decision', async (req, res) => {
     let data = payload
     console.log('payload: ', data)
 
+    var timestamp = data.issued_at
+    var date = new Date(timestamp);
+    console.log('timestamp', date.getTime())
+    console.log(date)
 
-let time_refresh =  new Date(new Date().getTime()+30*24*3600*1000).toGMTString()
-    console.log('tiempo_refresh: ',time_refresh)
 
-
-    await updateUserTokenRefresh(data.refresh_token, domain)
-    let time =  new Date(new Date().getTime()+1*3600*24).toGMTString()
-    console.log('Tiempo: ',time)
-    res.cookie('sheet', data.access_token, { maxAge: time , httpOnly: true, sameSite: 'none', secure: true })
+   res.cookie('sheet', data.access_token, { maxAge: data.issued_at , httpOnly: true, sameSite: 'none', secure: true })
     /*
     let time1 =  new Date(Number(data.issued_at))
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
