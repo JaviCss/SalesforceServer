@@ -107,13 +107,16 @@ app.get('/auth/token', async (req, res) => {
 
 
 app.get('/auth/handle_decision', async (req, res) => {
-  const { sheet, clean_sheet, url_sheet, consumer_id_sheet } = req.cookies
+  let user = await getUser(domain)
   var authorizationCode = req.query.code
-  console.log(authorizationCode)
+
+
+  
+
   oauth2.authenticate({
     redirect_uri: redirect_uri,
-    client_id: consumer_id_sheet,
-    client_secret: client_secret,
+    client_id: user[0].consumeri,
+    client_secret: user[0].consumers,
     code: authorizationCode,
     base_url: 'https://test.salesforce.com',
   }, function (error, payload) {
@@ -124,10 +127,10 @@ app.get('/auth/handle_decision', async (req, res) => {
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
     console.log('Tiempo: ',time1)
     console.log(time)    let time_refresh =  new Date(new Date().getTime()+30*24*3600*1000).toGMTString()
-    console.log('tiempo_refresh: ',time_refresh)*/
+    console.log('tiempo_refresh: ',time_refresh)
     res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
     res.cookie('clean_sheet', data.refresh_token, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-    res.cookie('url_sheet', data.instance_url, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
+    res.cookie('url_sheet', data.instance_url, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })*/
     res.send("<script>window.close();</script >")
     res.end()
 

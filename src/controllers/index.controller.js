@@ -28,10 +28,7 @@ const getUser = async (domain) => {
 
 
 const checkUser = async (req, res) => {
-    const { consumeri, consumers, domain } = req.body
-    console.log(consumeri)
-    console.log(consumers)
-    console.log(domain)
+    const {domain } = req.body
     const response = await pool.query('SELECT * FROM usuarios WHERE domain = ($1)', [domain])
     return response.rows
 }
