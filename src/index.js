@@ -90,7 +90,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     let data = payload
     console.log('payload: ', data)
 
-    var timestamp = data.issued_at
+    var timestamp = Number(data.issued_at)
     var date = new Date(timestamp);
     console.log('timestamp', date.getTime())
     console.log(date)
