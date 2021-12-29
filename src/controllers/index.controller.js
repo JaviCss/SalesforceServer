@@ -10,7 +10,7 @@ const pool = new Pool({
     port: '5432',
     ssl:{
         rejectUnauthorized: false
-    }
+    },
 })
 
 
