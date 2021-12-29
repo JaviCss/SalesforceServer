@@ -48,10 +48,13 @@ app.post('/auth/user', async (req, res) => {
     }else{
       console.log('actualizando credenciales')
      let updateuser = await  updateUser(req, res)
+     res.status(200).end()
     }
   }
 
-  
+
+  //crea el usuario
+  res.status(200).end()
 })
 
 app.get('/auth/salesforce', async (req, res) => {
