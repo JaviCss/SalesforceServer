@@ -69,8 +69,8 @@ app.get('/auth/salesforce', async (req, res) => {
     base_url: 'https://test.salesforce.com'
   })
 
-  /*
-  res.cookie('consumer_id_sheet', id, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
+  
+  res.cookie('domain', id, { maxAge: 2147483647 , httpOnly: true, sameSite: 'none', secure: true })
   //res.send(`${uri}`)*/
   res.redirect(uri)
   res.end()
@@ -107,6 +107,7 @@ app.get('/auth/token', async (req, res) => {
 
 
 app.get('/auth/handle_decision', async (req, res) => {
+  const { domain } = req.cookies
   let user = await getUser(domain)
   var authorizationCode = req.query.code
 
