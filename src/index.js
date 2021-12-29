@@ -90,8 +90,8 @@ app.get('/auth/handle_decision', async (req, res) => {
     let data = payload
     console.log('payload: ', data)
 
-    var timestamp = 3600*24
-    var date = new Date(timestamp);
+    var timestamp = Number(data.issued_at)
+    var date = new Date(timestamp + 3600*24);
     console.log('timestamp', date.getTime())
     console.log(date)
     console.log(date.toGMTString())
