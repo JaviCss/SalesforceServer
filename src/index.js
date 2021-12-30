@@ -93,6 +93,11 @@ app.get('/auth/handle_decision', async (req, res) => {
     var timestamp = Number(data.issued_at)
     var date = new Date(timestamp + 3600*24*1000); //setea el token por 24 horas
     res.cookie('sheet', data.access_token, { maxAge: date.getTime() , httpOnly: true, sameSite: 'none', secure: true })
+
+
+    let t = Date.now()
+    var d = new Date(t + 3600*24*1000*30*12); //setea el domain por un año
+    res.cookie('url_sheet', data.instance_url, { maxAge: d, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
     /*
     let time1 =  new Date(Number(data.issued_at))
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
@@ -100,7 +105,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     console.log(time)    
     
     res.cookie('clean_sheet', data.refresh_token, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
-    res.cookie('url_sheet', data.instance_url, { maxAge: ageLong, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })*/
+    */
 
 
     res.send("<script>window.close();</script >")
@@ -112,7 +117,7 @@ app.get('/auth/handle_decision', async (req, res) => {
 
 //TOKEN
 app.get('/auth/token', async (req, res) => {
-  const { sheet, domain } = req.cookies
+  const { sheet, domain, url_sheet } = req.cookies
   console.log(sheet)
   console.log(domain)
   let user = await getUser(domain)
