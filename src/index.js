@@ -91,7 +91,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     console.log('payload: ', data)
 
     var timestamp = Number(data.issued_at)
-    var date = new Date(timestamp + 3600*24);
+    var date = new Date(timestamp + 3600*24+1000);
     var date2 = new Date(timestamp);
     console.log('creada',date2)
     console.log('creada las un dia',date)
