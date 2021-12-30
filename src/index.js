@@ -107,8 +107,10 @@ app.get('/auth/token', async (req, res) => {
       })
       const data = await response.json();
       console.log(data)
+
       console.log('new token generated')
       res.cookie('sheet', data.access_token, { maxAge: token_expire_time, httpOnly: true, sameSite: 'none', secure: true })
+      token = data.access_token
     } else {
       console.log('no hay token refresh')
       token = 'undefined'
