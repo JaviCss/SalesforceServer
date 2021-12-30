@@ -95,7 +95,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     var date2 = new Date(timestamp);
     console.log('creada',date2)
     console.log('creada las un dia',date)
-
+    console.log('un dia',date.getTime())
    res.cookie('sheet', data.access_token, { maxAge: data.issued_at , httpOnly: true, sameSite: 'none', secure: true })
     /*
     let time1 =  new Date(Number(data.issued_at))
