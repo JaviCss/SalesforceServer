@@ -92,7 +92,7 @@ app.get('/auth/handle_decision', async (req, res) => {
 
     let timestamp = Number(data.issued_at)
     let date = new Date(timestamp + 3600 * 24 * 1000); 
-    let time = (timestamp - (3600*3))//setea el token por 24 horas
+    let time = (timestamp - (3600*3*1000))//setea el token por 24 horas
     
     let dateTest = new Date(time + 60 * 2 * 1000)
     console.log(dateTest)
