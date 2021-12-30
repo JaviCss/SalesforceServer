@@ -119,7 +119,7 @@ console.log(user)
     console.log('Token correct')
     token = sheet
   } else {
-    if (clean_sheet) {
+    if (user[0].tokenrefresh !== null) {
       console.log('Token expired')
       const params = new URLSearchParams()
       params.append('client_id', user[0].consumeri)
