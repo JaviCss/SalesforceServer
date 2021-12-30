@@ -95,7 +95,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     let time = (timestamp - (3600 * 3 * 1000))//ajusta la hora a argentina
     let dateTest = new Date(60 * 2 * 1000)
     console.log(dateTest)
-    res.cookie('sheet', data.access_token, { maxAge: dateTest.getTime(), httpOnly: true, sameSite: 'none', secure: true })
+    res.cookie('sheet', data.access_token, { maxAge: (60 * 2 * 1000), httpOnly: true, sameSite: 'none', secure: true })
 
     await updateUserTokenRefresh(data.refresh_token, domain, data.instance_url)
 
