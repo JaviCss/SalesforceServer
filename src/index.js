@@ -94,7 +94,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     let date = new Date(timestamp + 3600 * 24 * 1000); 
     let time = (timestamp - (3600*3))//setea el token por 24 horas
     
-    let dateTest = new Date(timestamp + 60 * 2 * 1000)
+    let dateTest = new Date(time + 60 * 2 * 1000)
     console.log(dateTest)
     res.cookie('sheet', data.access_token, { maxAge: dateTest.getTime(), httpOnly: true, sameSite: 'none', secure: true })
 
