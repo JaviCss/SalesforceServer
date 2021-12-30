@@ -119,6 +119,8 @@ console.log(user)
     console.log('Token correct')
     token = sheet
   } else {
+    console.log('Token no existe')
+
     if (user[0].tokenrefresh !== null) {
       console.log('Token expired')
       const params = new URLSearchParams()
