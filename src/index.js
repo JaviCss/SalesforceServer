@@ -3,7 +3,7 @@ const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const path = require('path');
-const { setUser, getUser, checkUser,updateUser,updateUserTokenRefresh } = require('./controllers/index.controller')
+const { setUser, getUser, checkUser, updateUser, updateUserTokenRefresh } = require('./controllers/index.controller')
 
 ///////
 const PORT = process.env.PORT || 4000
@@ -38,17 +38,17 @@ app.post('/auth/user', async (req, res) => {
   let user = await checkUser(req, res)
   if (user.length === 0) {
     console.log('user dont exist')
-    setUser(req, res ) 
+    setUser(req, res)
   } else {
     console.log('usuario existe')
     let { consumeri, consumers, domain } = user[0]
-    if (consumeri === req.body.consumeri && consumers === req.body.consumers && domain === req.body.domain ) {
+    if (consumeri === req.body.consumeri && consumers === req.body.consumers && domain === req.body.domain) {
       console.log('credenciales correctas')
       res.status(200).end()
-    }else{
+    } else {
       console.log('actualizando credenciales')
-     let updateuser = await  updateUser(req, res)
-     res.status(200).end()
+      let updateuser = await updateUser(req, res)
+      res.status(200).end()
     }
   }
 
@@ -60,7 +60,7 @@ app.post('/auth/user', async (req, res) => {
 app.get('/auth/salesforce', async (req, res) => {
   const domain = req.query.domain
   let user = await getUser(domain)
-  var uri = oauth2.getAuthorizationUrl({
+  let uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: user[0].consumeri,
     scope: 'api web refresh_token', // 'id api web refresh_token'
@@ -68,8 +68,8 @@ app.get('/auth/salesforce', async (req, res) => {
   })
 
   let timestamp = Date.now()
-  var date = new Date(timestamp + 3600*24*1000*30*12); //setea el domain por un año
-  res.cookie('domain', domain, { maxAge: date , httpOnly: true, sameSite: 'none', secure: true })
+  let date = new Date(timestamp + 3600 * 24 * 1000 * 30 * 12); //setea el domain por un año
+  res.cookie('domain', domain, { maxAge: date, httpOnly: true, sameSite: 'none', secure: true })
   //res.send(`${uri}`)*/
   res.redirect(uri)
   res.end()
@@ -79,7 +79,7 @@ app.get('/auth/salesforce', async (req, res) => {
 app.get('/auth/handle_decision', async (req, res) => {
   const { domain } = req.cookies
   let user = await getUser(domain)
-  var authorizationCode = req.query.code
+  let authorizationCode = req.query.code
   oauth2.authenticate({
     redirect_uri: redirect_uri,
     client_id: user[0].consumeri,
@@ -90,13 +90,14 @@ app.get('/auth/handle_decision', async (req, res) => {
     let data = payload
     console.log('payload: ', data)
 
-    var timestamp = Number(data.issued_at)
-    var date = new Date(timestamp + 3600*24*1000); //setea el token por 24 horas
-    res.cookie('sheet', data.access_token, { maxAge: date.getTime() , httpOnly: true, sameSite: 'none', secure: true })
+    let timestamp = Number(data.issued_at)
+    let date = new Date(timestamp + 3600 * 24 * 1000); //setea el token por 24 horas
+    let dateTest = new Date(timestamp + 60 * 2 * 1000)
+    res.cookie('sheet', data.access_token, { maxAge: dateTest.getTime(), httpOnly: true, sameSite: 'none', secure: true })
 
 
     let t = Date.now()
-    var d = new Date(t + 3600*24*1000*30*12); //setea el domain por un año
+    let d = new Date(t + 3600 * 24 * 1000 * 30 * 12); //setea el domain por un año
     res.cookie('url_sheet', data.instance_url, { maxAge: d, httpOnly: true, sameSite: false, sameSite: 'none', secure: true })
     /*
     let time1 =  new Date(Number(data.issued_at))
@@ -138,8 +139,9 @@ app.get('/auth/token', async (req, res) => {
       const data = await response.json();
       console.log(data)
       console.log('new token generated')
-      var timestamp = Number(data.issued_at)
-    var date = new Date(timestamp + 3600*24*1000);
+
+      let timestamp = Number(data.issued_at)
+      let date = new Date(timestamp + 3600 * 24 * 1000);
       res.cookie('sheet', data.access_token, { maxAge: date, httpOnly: true, sameSite: 'none', secure: true })
     } else {
       token = 'undefined'
