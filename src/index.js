@@ -92,14 +92,9 @@ app.get('/auth/handle_decision', async (req, res) => {
 
     var timestamp = Number(data.issued_at)
     var date = new Date(timestamp + 3600*24);
-
-
-
-    var now2 = Date.now()
-    console.log(now2)
-    console.log(date)
-    console.log(date.toGMTString())
-
+    var date2 = new Date(timestamp);
+    console.log('creada',date2)
+    console.log('creada las un dia',date)
 
    res.cookie('sheet', data.access_token, { maxAge: data.issued_at , httpOnly: true, sameSite: 'none', secure: true })
     /*
