@@ -1,23 +1,17 @@
+//IMPORTS
 const express = require('express')
 const oauth2 = require('salesforce-oauth2')
 const cookieParser = require('cookie-parser')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const path = require('path');
 const { setUser, getUser, checkUser, updateUser, updateUserTokenRefresh } = require('./controllers/index.controller')
-
-///////
+//CONFIG
+const redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
+const token_expire_time = (60 * 2 * 1000) // 24 horas
+const domain_expire_time = (3600 * 24 * 1000 * 30 * 12) // 1 año
 const PORT = process.env.PORT || 4000
 const app = express();
-
-
-//let client_id = '3MVG9LBJLApeX_PAOL8P8mOUd4nVt3vEFrBWR3A_CIVRpm9XoV3Vs75EgJXBm123XIOoNlk.3ATAKxU5x0rIn'
-let client_secret = '0FD86DB0FA9DB7013019B7F41F80697E836379B6048A983A5DF733BCF8DB0BF1'
-let redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
-
-//config
-let ageShort = 3600 * 1000
-let ageLong = 30 * 24 * 3600 * 1000
-
+//SET APP
 app.set('port', PORT)
 app.set('trust proxy', 1)
 app.set('views', path.join(__dirname, 'templates'));
@@ -31,9 +25,8 @@ app.use(cookieParser())
 //routes
 app.listen(app.get('port'), () => { })
 
-
 //SALESFORCE
-
+//save data db
 app.post('/auth/user', async (req, res) => {
   let user = await checkUser(req, res)
   if (user.length === 0) {
@@ -51,12 +44,10 @@ app.post('/auth/user', async (req, res) => {
       res.status(200).end()
     }
   }
-
-
   //crea el usuario
   res.status(200).end()
 })
-
+//login
 app.get('/auth/salesforce', async (req, res) => {
   const domain = req.query.domain
   let user = await getUser(domain)
@@ -66,16 +57,11 @@ app.get('/auth/salesforce', async (req, res) => {
     scope: 'api web refresh_token', // 'id api web refresh_token'
     base_url: 'https://test.salesforce.com'
   })
-
-  let timestamp = Date.now()
-  let date = (3600 * 24 * 1000 * 30 * 12); //setea el domain por un año
-  res.cookie('domain', domain, { maxAge: date, httpOnly: true, sameSite: 'none', secure: true })
-  //res.send(`${uri}`)*/
+  res.cookie('domain', domain, { maxAge: domain_expire_time, httpOnly: true, sameSite: 'none', secure: true })
   res.redirect(uri)
   res.end()
 
 })
-
 app.get('/auth/handle_decision', async (req, res) => {
   const { domain } = req.cookies
   let user = await getUser(domain)
@@ -89,9 +75,7 @@ app.get('/auth/handle_decision', async (req, res) => {
   }, async function (error, payload) {
     let data = payload
     console.log('payload: ', data)
-
-    let number = (60 * 2 * 1000)
-    res.cookie('sheet', data.access_token, { maxAge: number, httpOnly: true, sameSite: 'none', secure: true })
+    res.cookie('sheet', data.access_token, { maxAge: token_expire_time, httpOnly: true, sameSite: 'none', secure: true })
 
     await updateUserTokenRefresh(data.refresh_token, domain, data.instance_url)
 
@@ -100,8 +84,6 @@ app.get('/auth/handle_decision', async (req, res) => {
 
   })
 })
-
-
 //TOKEN
 app.get('/auth/token', async (req, res) => {
   let domain = req.query.domain
@@ -126,8 +108,7 @@ app.get('/auth/token', async (req, res) => {
       const data = await response.json();
       console.log(data)
       console.log('new token generated')
-      let number = (60 * 2 * 1000)
-      res.cookie('sheet', data.access_token, { maxAge: number, httpOnly: true, sameSite: 'none', secure: true })
+      res.cookie('sheet', data.access_token, { maxAge: token_expire_time, httpOnly: true, sameSite: 'none', secure: true })
     } else {
       console.log('no hay token refresh')
       token = 'undefined'
