@@ -68,7 +68,7 @@ app.get('/auth/salesforce', async (req, res) => {
   })
 
   let timestamp = Date.now()
-  let date = ( 3600 * 24 * 1000 * 30 * 12); //setea el domain por un año
+  let date = (3600 * 24 * 1000 * 30 * 12); //setea el domain por un año
   res.cookie('domain', domain, { maxAge: date, httpOnly: true, sameSite: 'none', secure: true })
   //res.send(`${uri}`)*/
   res.redirect(uri)
@@ -91,7 +91,6 @@ app.get('/auth/handle_decision', async (req, res) => {
     console.log('payload: ', data)
 
     let number = (60 * 2 * 1000)
-    console.log(dateTest)
     res.cookie('sheet', data.access_token, { maxAge: number, httpOnly: true, sameSite: 'none', secure: true })
 
     await updateUserTokenRefresh(data.refresh_token, domain, data.instance_url)
@@ -109,20 +108,17 @@ app.get('/auth/token', async (req, res) => {
   console.log(domain)
   const { sheet } = req.cookies
   let user = await getUser(domain)
-
-console.log(user)
   let token
+  console.log(user)
   if (sheet) {
     console.log('Token correct')
     token = sheet
   } else {
-    console.log('Token no existe')
-
     if (user[0].tokenrefresh !== null) {
       console.log('Token expired')
       const params = new URLSearchParams()
       params.append('client_id', user[0].consumeri)
-      params.append('refresh_token', user[0].refreshtoken)
+      params.append('refresh_token', user[0].tokenrefresh)
       const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
         method: 'post',
         body: params
