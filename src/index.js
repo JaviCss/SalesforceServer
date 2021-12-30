@@ -109,6 +109,7 @@ app.get('/auth/handle_decision', async (req, res) => {
 //TOKEN
 app.get('/auth/token', async (req, res) => {
   let domain = req.query.domain
+  console.log(domain)
   const { sheet } = req.cookies
   let user = await getUser(domain)
 
