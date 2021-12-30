@@ -60,8 +60,6 @@ app.post('/auth/user', async (req, res) => {
 app.get('/auth/salesforce', async (req, res) => {
   const domain = req.query.domain
   let user = await getUser(domain)
-  console.log(user)
- 
   var uri = oauth2.getAuthorizationUrl({
     redirect_uri: redirect_uri,
     client_id: user[0].consumeri,
@@ -70,7 +68,7 @@ app.get('/auth/salesforce', async (req, res) => {
   })
 
   let timestamp = Date.now()
-  var date = new Date(timestamp + 3600*24*1000*30);
+  var date = new Date(timestamp + 3600*24*1000*30*12); //setea el domain por un año
   res.cookie('domain', domain, { maxAge: date , httpOnly: true, sameSite: 'none', secure: true })
   //res.send(`${uri}`)*/
   res.redirect(uri)
@@ -114,7 +112,10 @@ app.get('/auth/handle_decision', async (req, res) => {
 
 //TOKEN
 app.get('/auth/token', async (req, res) => {
-  const { sheet, clean_sheet, url_sheet, consumer_id_sheet } = req.cookies
+  const { sheet, domain } = req.cookies
+  console.log(sheet)
+  console.log(domain)
+  let user = await getUser(domain)
   let token
   if (sheet) {
     console.log('Token correct')
@@ -123,8 +124,8 @@ app.get('/auth/token', async (req, res) => {
     if (clean_sheet) {
       console.log('Token expired')
       const params = new URLSearchParams()
-      params.append('client_id', consumer_id_sheet)
-      params.append('refresh_token', clean_sheet)
+      params.append('client_id', user[0].consumeri)
+      params.append('refresh_token', user[0].refreshtoken)
       const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
         method: 'post',
         body: params
@@ -132,7 +133,9 @@ app.get('/auth/token', async (req, res) => {
       const data = await response.json();
       console.log(data)
       console.log('new token generated')
-      res.cookie('sheet', data.access_token, { maxAge: ageLong, httpOnly: true, sameSite: 'none', secure: true })
+      var timestamp = Number(data.issued_at)
+    var date = new Date(timestamp + 3600*24*1000);
+      res.cookie('sheet', data.access_token, { maxAge: date, httpOnly: true, sameSite: 'none', secure: true })
     } else {
       token = 'undefined'
     }
