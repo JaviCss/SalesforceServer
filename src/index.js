@@ -105,7 +105,6 @@ app.get('/auth/handle_decision', async (req, res) => {
 //TOKEN
 app.get('/auth/token', async (req, res) => {
   let domain = req.query.domain
-  console.log(domain)
   const { sheet } = req.cookies
   let user = await getUser(domain)
   let token
@@ -119,14 +118,14 @@ app.get('/auth/token', async (req, res) => {
       const params = new URLSearchParams()
       params.append('client_id', user[0].consumeri)
       params.append('refresh_token', user[0].tokenrefresh)
-      const response = await fetch('https://login.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
+      console.log(user[0].tokenrefresh)
+      const response = await fetch('https://test.salesforce.com/services/oauth2/token?grant_type=refresh_token', {
         method: 'post',
         body: params
       })
       const data = await response.json();
       console.log(data)
       console.log('new token generated')
-
       let number = (60 * 2 * 1000)
       res.cookie('sheet', data.access_token, { maxAge: number, httpOnly: true, sameSite: 'none', secure: true })
     } else {
