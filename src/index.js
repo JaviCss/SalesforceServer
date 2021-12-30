@@ -93,7 +93,7 @@ app.get('/auth/handle_decision', async (req, res) => {
     let timestamp = Number(data.issued_at)
     let date = new Date(timestamp + 3600 * 24 * 1000); //setea el token por 24 horas    
     let time = (timestamp - (3600 * 3 * 1000))//ajusta la hora a argentina
-    let dateTest = new Date(time + 60 * 2 * 1000)
+    let dateTest = new Date(60 * 2 * 1000)
     console.log(dateTest)
     res.cookie('sheet', data.access_token, { maxAge: dateTest.getTime(), httpOnly: true, sameSite: 'none', secure: true })
 
@@ -136,6 +136,7 @@ console.log(user)
       let date = new Date(timestamp + 3600 * 24 * 1000);
       res.cookie('sheet', data.access_token, { maxAge: date, httpOnly: true, sameSite: 'none', secure: true })
     } else {
+      console.log('no hay token refresh')
       token = 'undefined'
     }
   }
