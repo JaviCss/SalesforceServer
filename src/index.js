@@ -68,7 +68,7 @@ app.get('/auth/salesforce', async (req, res) => {
   })
 
   let timestamp = Date.now()
-  let date = new Date(timestamp + 3600 * 24 * 1000 * 30 * 12); //setea el domain por un año
+  let date = ( 3600 * 24 * 1000 * 30 * 12); //setea el domain por un año
   res.cookie('domain', domain, { maxAge: date, httpOnly: true, sameSite: 'none', secure: true })
   //res.send(`${uri}`)*/
   res.redirect(uri)
@@ -90,10 +90,6 @@ app.get('/auth/handle_decision', async (req, res) => {
     let data = payload
     console.log('payload: ', data)
 
-    let timestamp = Number(data.issued_at)
-    let date = new Date(timestamp + 3600 * 24 * 1000); //setea el token por 24 horas    
-    let time = (timestamp - (3600 * 3 * 1000))//ajusta la hora a argentina
-    let dateTest = new Date(60 * 2 * 1000)
     let number = (60 * 2 * 1000)
     console.log(dateTest)
     res.cookie('sheet', data.access_token, { maxAge: number, httpOnly: true, sameSite: 'none', secure: true })
@@ -135,9 +131,8 @@ console.log(user)
       console.log(data)
       console.log('new token generated')
 
-      let timestamp = Number(data.issued_at)
-      let date = new Date(timestamp + 3600 * 24 * 1000);
-      res.cookie('sheet', data.access_token, { maxAge: date, httpOnly: true, sameSite: 'none', secure: true })
+      let number = (60 * 2 * 1000)
+      res.cookie('sheet', data.access_token, { maxAge: number, httpOnly: true, sameSite: 'none', secure: true })
     } else {
       console.log('no hay token refresh')
       token = 'undefined'
