@@ -6,7 +6,7 @@ CREATE DATABASE webserversalesforce ;
 
 
 
-CREATE TABLE usuarios ( id SERIAL PRIMARY KEY, consumeri VARCHAR(100) , consumers VARCHAR(100) ,tokenrefresh VARCHAR(100), domain TEXT);
+CREATE TABLE usuarios ( id SERIAL PRIMARY KEY, consumeri VARCHAR(100) , consumers VARCHAR(100) ,tokenrefresh VARCHAR(100), instance_url TEXT, domain TEXT);
 
 INSERT INTO usuarios(consumeri, consumers, tokenrefresh, domain) VALUES
         ('consumeri', 'consumers', 'tokenrefresh', 'joaquin.decima@gmail.com'),
