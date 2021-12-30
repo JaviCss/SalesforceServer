@@ -68,8 +68,10 @@ app.get('/auth/salesforce', async (req, res) => {
     scope: 'api web refresh_token', // 'id api web refresh_token'
     base_url: 'https://test.salesforce.com'
   })
-  
-  res.cookie('domain', domain, { maxAge: ageLong , httpOnly: true, sameSite: 'none', secure: true })
+
+  let timestamp = Date.now()
+  var date = new Date(timestamp + 3600*24*1000*30);
+  res.cookie('domain', domain, { maxAge: date , httpOnly: true, sameSite: 'none', secure: true })
   //res.send(`${uri}`)*/
   res.redirect(uri)
   res.end()
@@ -91,12 +93,8 @@ app.get('/auth/handle_decision', async (req, res) => {
     console.log('payload: ', data)
 
     var timestamp = Number(data.issued_at)
-    var date = new Date(timestamp + 3600*24*1000);
-    var date2 = new Date(timestamp);
-    console.log('creada',date2)
-    console.log('creada las un dia',date)
-    console.log('un dia',date.getTime())
-   res.cookie('sheet', data.access_token, { maxAge: data.issued_at , httpOnly: true, sameSite: 'none', secure: true })
+    var date = new Date(timestamp + 3600*24*1000); //setea el token por 24 horas
+    res.cookie('sheet', data.access_token, { maxAge: date.getTime() , httpOnly: true, sameSite: 'none', secure: true })
     /*
     let time1 =  new Date(Number(data.issued_at))
     let time =  new Date(new Date().getTime()+1*3600*1000).toGMTString()
