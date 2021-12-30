@@ -44,8 +44,6 @@ const setUser = async (req, res) => {
             user: { consumeri, consumers, domain }
         }
     }
-
-    res.status(200).json(resmsj)
     return resmsj
 }
 const updateUser = async (req, res) => {
