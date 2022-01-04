@@ -7,7 +7,7 @@ const path = require('path');
 const { setUser, getUser, checkUser, updateUser, updateUserTokenRefresh } = require('./controllers/index.controller')
 //CONFIG
 const redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
-const token_expire_time = (60 * 2 * 1000) // 24 horas
+const token_expire_time = (3600 * 24 * 1000) // 24 horas
 const domain_expire_time = (3600 * 24 * 1000 * 30 * 12) // 1 año
 const PORT = process.env.PORT || 4000
 const app = express();
@@ -112,7 +112,7 @@ app.get('/auth/token', async (req, res) => {
       res.cookie('sheet', data.access_token, { maxAge: token_expire_time, httpOnly: true, sameSite: 'none', secure: true })
       token = data.access_token
     } else {
-      console.log('no hay token refresh')
+      console.log('dont have token refresh')
       token = 'undefined'
     }
   }
