@@ -7,7 +7,7 @@ const path = require('path');
 const { setUser, getUser, checkUser, updateUser, updateUserTokenRefresh } = require('./controllers/index.controller')
 //CONFIG
 const redirect_uri = 'https://server-sf.herokuapp.com/auth/handle_decision'
-const token_expire_time = (3600 * 2 * 1000) // 24 horas
+const token_expire_time = (3600 * 1 * 1000) // 1 hora
 const domain_expire_time = (3600 * 24 * 1000 * 30 * 12) // 1 año
 const PORT = process.env.PORT || 4000
 const app = express();
